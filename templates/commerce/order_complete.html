@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block title %}Confirmation {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="append-1 span-22 prepend-1 append-bottom clearfix"> 
+	<a href="https://yupeat.appspot.com/order/{{city}}">
+		<div class="logo span-16"></div>
+		{% include 'profile/login_navbar.html'%}
+	</a>
+	
+	<hr/>
+	
+	<div>
+		<h2><b>Confirmation:</b> Thanks! Pick up your order anytime between {{pickup_time}}</h2>
+	</div>
+	<div>{% for r in recipes %}<h3><b>{{r.name}}</b><h3/>{% endfor %}</div>
+	<div id="address" class="span-7">
+		{{store.store_name}}<br/>
+		{{store.street1}}<br/>
+		{{store.city}}, {{store.state}} {{store.postal_code}}<br/>
+		{{store.country}}<br/></p>
+	
+		</div>
+		<div id="map" class="span-7 push-2 last">
+			{{map.map}}
+		</div>
+   </div>
+	<div class="append-1 span-22 prepend-1 append-bottom"> 
+	<div class="contact_us_box rounded-corners append-bottom">
+		Need to change your pick-up time? Send us an email: <a href="mailto:yupeat@yupeat.com">yupeat@yupeat.com</a>
+	</div>
+	<div><center>Oh and don't forget to invite your friends over for dinner tonight.</center></div>
+	<div class="social">
+		<div>
+			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=228782430467227&amp;xfbml=1"></script>
+			<fb:like href="http://www.facebook.com/yupeat" send="false" layout="button_count" width="450" show_faces="true" font=""></fb:like>
+		</div>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

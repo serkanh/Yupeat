@@ -1,0 +1,18 @@
+<div id="coupon_box" class="row span-16 last coupon_code" style='display:none;'>
+	<div class="span-3 coupon_lead indent">Coupon</div>
+	<div class="span-11">
+		<div id='coupon_error' class='red xsmall' style='display:none'></div>
+		<input id="coupon_entry" class='coupon_entry' name='coupon' type='text' />
+		<input id="coupon_submit" type='submit' value='Apply Coupon' />
+	</div>
+	<div class="span-2 coupon_lead last"><a id="cancel_coupon" class='cancel_coupon'>cancel</a></div>
+</div>
+
+<div class="row span-16 last total append-bottom">
+	<div class="span-12 indent">Total</div>
+	<div id="total" class="span-2">{{restored_total}}</div><div class='span-2 coupon last'>
+		<a id='coupon'>Coupon?</a>
+	</div>
+	<input id="confirm_total" name="confirm_total" type='hidden' value={{restored_total}} />
+	<input id="confirm_coupon" name="confirm_coupon" type='hidden' value={{coupon}} />
+</div>

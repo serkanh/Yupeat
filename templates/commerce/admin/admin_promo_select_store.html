@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Admin (All Recipes){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block admin_navbar %}
+	{% include 'profile/admin/admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container"> 
+	      
+		  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+              <div class="logo"></div>
+          </div>
+          <div class="append-1 span-22 prepend-1 prepend-top">
+              <h2>Schedule</h2>
+			  {% regroup store by city as city_list %}
+			  {% for c in city_list %}
+			  <b>{{ c.grouper }}</b>
+			  <table>
+				{% for item in c.list %}
+				<tr class="{% cycle '' 'even' %}">
+					<td><a href="/order/admin/schedule/{{item.id}}">{{item.store_name}}</a>, 
+					{% if item.street1 %}{{item.street1}},{% endif %}
+					{% if item.street2 %}{{item.street2}},{% endif %} {{item.city}} {{item.state}}</td>
+				</tr>
+				{% endfor %}
+              </table>
+			  {% endfor %}
+          </div>
+</div>
+{% endblock %}

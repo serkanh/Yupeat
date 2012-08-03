@@ -1,0 +1,112 @@
+<!--
+---------DEPRECATED------------
+-->
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% load media %}
+{% load filetransfers %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block content %}
+
+ <div class="append-1 span-22 prepend-1">
+	<div class="logo span-17"></div>
+	{% include 'profile/login_navbar.html' %}
+    <hr/>
+	<div id="subscribe" class="subscribe span-18 prepend-top">
+	  {% load media %}
+	   <form id="{% if customer %} subscribe_form_card_saved {% else %} subscribe_form {% endif %}" 
+			name="subscribe_form"  action="." method="post">{% csrf_token %}
+	  <div class="clearfix prepend-top">
+	  	<div class="subscribe_box append-bottom rounded-corners">
+	  		<span>Yupeat Unlimited <h6>($14.99/month)</h6></span> 
+			<p>With your Yupeat subscription you get a Yupeat buyer to purchase 
+			ingredients to the daily meal any night of the week (M-F)
+			for pick-up (5-7p) at any one of our pickup locations. </p>
+	  	</div>
+		{% if customer and not change_card %}
+		<div id="existing_card" class="span-16 row">
+			<div class="span-8 column">
+				Pay with Existing Card<br/>
+				<hr />
+				<p>{{customer.active_card.type}}</p>
+			
+			</div>
+			<div class="span-4 column">
+				Card Number <br/>
+				<hr />
+				<p>*** -{{customer.active_card.last4}}</p>
+			</div>
+		</div>
+		<div class="span-16">
+			<p><a id="change_card" href="/profile/subscribe/?change_card=True">Change card</a></p>
+		</div>
+		{% endif %}
+		
+		{% if not customer or change_card %}
+			
+			{% if customer%}
+				<div class="span-16">
+					<p><a id="change_card" href="/order/{{city}}/">
+					Use Existing Card
+					</a></p>
+				</div>
+			{% endif %}
+		<div class=" span-16 prepend-top append-bottom">
+		<div id="billing_address" class="span-8 append-bottom">
+			{{payment.first_name}} {{payment.last_name}}<br>
+			{{payment.street1}}<br>
+			{{payment.street2}}<br>
+			{{payment.city}} {{payment.state}} {{payment.postal_code}}<br>
+			{{payment.country}}<br>
+		</div>
+		<div id="cc" class="span-7 push-1 append-bottom">
+			<img src="{% media_url 'images/icons/cc.png' %}"/>
+			<br/>
+			<!-- Stripe stuff -->
+			<script src="https://js.stripe.com/v0/"></script>
+			<script>
+				Stripe.configure({
+				    pubKey: "pk_FvIKMyVDxRLDb1eKeW2kV0Rul1TLr",
+					//Test
+					//pubKey:"pk_lYbXnRG55by29XymEqyCXySEJy41V",
+					chargeAmount: 1500,
+				})
+			</script>
+		</div>
+		</div>
+		{% endif %}
+	</div>
+	
+	<div class="subscribe_payment_box append-bottom span-18 rounded-corners">
+  		<div class="span-12">
+		<div>You will be charged: <span class="green">$14.99/month</span></div> 
+		<p>By becoming a subscriber, you agree to the Yupeat <a href="/terms">terms</a></p>
+		</div>
+		<div class="span-5">
+		<button type="submit" class="confirm_subscribe">Subscribe</button><br>
+		</div>
+  	</div>
+	<div class="subscribe_payment_box_sub span-18">
+		<a class='quiet' href='/order/sanfrancisco'>Nah, I'll pay per order</a>
+	</div>	
+  </form>
+ 
+	</div>
+ </div>
+
+<script type="text/javascript">lib.subscribe.init();</script>
+<script type="text/javascript">lib.auth.init();</script>
+
+{% endblock %}

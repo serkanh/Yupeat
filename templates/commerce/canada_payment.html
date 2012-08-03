@@ -1,0 +1,29 @@
+{% load media %}
+
+{% if user != None %}
+</form>
+<div id="payment" class="clearfix prepend-top">
+  	<h3 class="loud prepend-top"><b>3. Payment options</b>
+	</h3>
+	
+	<div class="span-16 append-bottom totalbox rounded-corners">
+		Total amount to be charged $<span id="totalbox_amount">{{total}}</span> CAD 
+	</div>
+	
+	<div id="pp_logo" class="span-5 append-bottom">
+		<img src="{% media_url 'images/icons/paypal_logo.gif' %}"/>
+	</div>
+	<div id="pp_instructions" class="span-10 append-bottom">
+		<p><b>Instructions:</b><br/> 
+		After clicking "Order using Paypal" you will be redirected to PayPal to complete payment. 
+		You must complete the process to place an order.</p>
+	</div>
+	{% if disabled %}  
+		{{payment.render_disabled}}
+	{% else %}
+		{{payment.render}}
+	{% endif %}
+</div>
+{% else %}
+	{% include "commerce/ajax/big_login_snippet.html" %}
+{% endif %}

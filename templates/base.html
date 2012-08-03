@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}"
+    xml:lang="{% firstof LANGUAGE_CODE 'en' %}"
+    lang="{% firstof LANGUAGE_CODE 'en' %}">
+	{% load media %}  
+  <head>
+    {%block ab%}{% endblock %}
+	<title>{%block title%}Cook great food at home | Yupeat{% endblock %}</title>
+	<link rel="icon" type="image/png" href="{% media_url 'images/favicon.ico' %}">
+    {% block css %}
+	<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+	<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+	{% include_media 'print.css' media='print' %}
+	{% endblock %}
+
+	{% block preload_js %}
+	{% endblock %}
+
+    {% block extra-head %}{% endblock %}
+	
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-12532896-4']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>
+  </head>
+
+  <body>
+  	{% block admin_navbar %}{% endblock %}
+	{% block messaging %}{% endblock %}
+	<div class="container">
+	{% block content %}{% endblock %}
+	
+	{% block footer %}
+	<hr class="space"></hr>
+	<div class="append-1 span-22 prepend-1 footer">
+		<div class="span-22 border_top"></div>
+			<div class="span-4">
+				<ul>
+					<li><a class="footer-link" href="/about">about us</a></li>
+					<li><a class="footer-link" href="/pricing">pricing</a></li>
+					<li><a class="footer-link" href="/faq">faq</a></li>
+				</ul>
+			</div>
+			<div class="span-4">
+				<ul>
+					<li><a class="footer-link" href="/about/buy-button">buy button</a></li>
+					<li><a class="footer-link" href="/vote">vote</a></li>
+					<li><a class="footer-link" href="/gifts">gift</a></li>
+				</ul>
+			</div>
+			<div class="span-4">
+				<ul>
+					<li><a class="footer-link" href="http://blog.yupeat.com">blog</a></li>
+					<li><a class="footer-link" href="/terms">terms</a></li>
+					<li><a class="footer-link" href="/privacy">privacy</a></li>
+				</ul>
+			</div>
+			<div class="span-9">
+				<p>
+				Find us on <a href="http://www.facebook.com/yupeat">Facebook</a> 
+				&amp <a href="http://twitter.com/yupeat">Twitter</a>
+				<br/>
+				&copy 2011 yupeat
+				</p>
+			</div>
+	</div>
+	{% endblock %}
+	
+	{% block load_js %}
+	{% endblock %}
+	
+	</div>
+  </body>
+
+</html>

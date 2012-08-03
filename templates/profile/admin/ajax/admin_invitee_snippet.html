@@ -1,0 +1,42 @@
+  <hr/>
+  {% regroup invitees.object_list by default_store as invitee_list %}
+  <div class="span-22 prepend-top append-bottom">
+  <table class='invitee-stats'>
+  	<tr>
+		<td><b>Invitee email address</b></td>
+		<td><b>Default Store</b></td>
+		<td><b>Used</b></td>
+	</tr>
+	{% for inv in invitee_list %}
+	
+	{% for item in inv.list %}
+	<tr class='{% if item.used %} green {% else %} red {% endif %}'>
+		<td>{{item.email}}</td>
+		<td>{{item.default_store}}</td>
+		<td>{{item.used}}</td>
+	</tr>
+	{% endfor %}
+	
+	{% endfor %}
+  </table>
+  
+  <!-- Pagination -->
+	  <div id="admin_profile_pagination">
+		  <div class="pagination xsmall">
+		    <span class="step-links">
+		        {% if invitees.has_previous %}
+		            <a id="page_previous" href="?page={{ invitees.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ invitees.number }} of {{ invitees.paginator.num_pages }}.
+		        </span>
+		
+		        {% if invitees.has_next %}
+		            <a id="page_next" href="?page={{ invitees.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		  </div>
+	  </div>
+  
+  </div>

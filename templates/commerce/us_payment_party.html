@@ -1,0 +1,73 @@
+{% load media %}
+
+{% if user != None %}
+	  <div id="payment" class="clearfix prepend-top">
+	  	<h3 class="loud prepend-top"><b>3. Payment options</b>
+		</h3>
+		<div class="span-16 append-bottom totalbox rounded-corners">
+			Total amount to be charged $<span id="totalbox_amount">{{total}}</span> US. Charged only if at least one friend
+			responds 'Yes'. 
+		</div>
+		{% if customer and not change_card %}
+		<div id="existing_card" class="span-16 row">
+			<div class="span-8 column">
+				Pay with Existing Card<br/>
+				<hr />
+				<p>{{customer.active_card.type}}</p>
+			
+			</div>
+			<div class="span-4 column">
+				Card Number <br/>
+				<hr />
+				<p>*** -{{customer.active_card.last4}}</p>
+			</div>
+		</div>
+		<div class="span-16">
+			<p><a id="change_card" href="/order/{{city}}/dinner-party/?change_card=True">Change card</a></p>
+		</div>
+		{% endif %}
+		
+		{% if not customer or change_card %}
+			
+			{% if customer%}
+				<div class="span-16">
+					<p><a id="change_card" href="/order/{{city}}/dinner-party/">
+					Use Existing Card
+					</a></p>
+				</div>
+			{% endif %}
+		
+		<div id="billing_address" class="span-8 append-bottom">
+			{{payment.first_name}} {{payment.last_name}}<br>
+			{{payment.street1}}<br>
+			{{payment.street2}}<br>
+			{{payment.city}} {{payment.state}} {{payment.postal_code}}<br>
+			{{payment.country}}<br>
+		</div>
+		<div id="cc" class="span-7 push-1 append-bottom">
+			<img src="{% media_url 'images/icons/cc.png' %}"/>
+			<br/>
+			<!-- Stripe stuff -->
+			<script src="https://js.stripe.com/v0/"></script>
+			<script>
+				Stripe.configure({
+				    pubKey: "pk_FvIKMyVDxRLDb1eKeW2kV0Rul1TLr",
+					//pubKey:"pk_lYbXnRG55by29XymEqyCXySEJy41V",
+					chargeAmount: 5000,
+					onValidationSuccess: function(token){console.log(token)},
+				})
+			</script>
+		</div>
+		{% endif %}
+	</div>
+	
+	<div id="submit" class="span-16">
+		<button type="submit" {% if disabled %} disabled="disabled" {% endif %} 
+		class="confirm {% if disabled %} disabled {% endif %}">
+			Invite Friends
+		</button>
+	</div>
+  </form>
+{% else %}
+	{% include "commerce/ajax/big_login_snippet.html" %}
+{% endif %}

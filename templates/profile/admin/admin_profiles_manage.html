@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Manage Profiles (Admin) | Yupeat{% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block admin_navbar %}
+	{% include 'profile/admin/admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+ 
+  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+  	<div class="logo span-16"></div>
+	{% include 'profile/login_navbar.html' %}
+    <hr/>
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+	  
+	  {% if messages %}
+		<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+		</div>
+	  {% endif %}
+	  
+	  <form action="." method="POST">{% csrf_token %}
+	  
+	  <div class="span-22 append-bottom">
+		  <div class="span-4">
+		  <div class="invite-block rounded-corners">
+		  	<p class="label"># of prospects</p> 
+			<div class="stat">{{ prospects|length }}</div>
+		  </div>
+		  </div>
+		  
+		  <div class="span-4">
+		  <div class="invite-block rounded-corners">
+		  	<p class="label"># of invites</p> 
+			<div class="stat">{{ invitees}}</div>
+			<div class="stat-sub">
+				(
+				<span class='green'>{{ used }}</span>/
+				<span class='red'>{{ unused }}</span>
+				)
+			</div>
+		  </div>
+		  </div>
+		  
+		  <div class="span-4">
+		  <div class="invite-block rounded-corners">
+		  	<p class="label"># of users</p> 
+			<div class="stat">{{ profiles}}</div>
+		  </div>
+		  </div>
+		  
+		  <div class="span-4">
+		  <div class="invite-block rounded-corners">
+		  	<p class="label"># of subscribers</p> 
+			<div class="stat">{{ issubscriber }}</div>
+		  </div>
+		  </div>
+		  
+	  </div>
+	  
+	  </form>
+	  
+	  <div id="profile-tab" class="profile-tab span-22 prepend-top">
+		<ul>
+			<li><a class="tab" id="prospects" href="">Prospects</a></li>
+			<li><a class="tab" id="invitees" href="">Invitees</a></li>
+			<li><a class="tab active" id="subscribers" href="">Subscribers</a></li>
+		</ul>
+	  </div>
+	  
+	  <div id="table_content">
+	  <hr/>
+	  {% regroup subscriber.object_list by subscription_type as sub_list %}
+	  <div class="span-22 prepend-top append-bottom">
+	  <table class='subscriber-stats'>
+      	<tr>
+			<td><b>Subscriber Profile</b></td>
+			<td><b>Subscription Type</b></td>
+		</tr>
+		{% for sub in sub_list %}
+		
+		{% for s in sub.list %}
+		<tr>
+			<td><a href='/profile/admin/manage/details/{{s.userprofile.user.id}}'>{{s.userprofile.user.email}}</a></td>
+			<td>{{s.subscription_type}}</td>
+		</tr>
+		{% endfor %}
+		
+		{% endfor %}
+		
+      </table>
+	  
+	  <!-- Pagination -->
+	  <div id="admin_profile_pagination">
+		  <div class="pagination xsmall">
+		    <span class="step-links">
+		        {% if subscriber.has_previous %}
+		            <a id="page_previous" href="?page={{ subscriber.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ subscriber.number }} of {{ subscriber.paginator.num_pages }}.
+		        </span>
+		
+		        {% if subscriber.has_next %}
+		            <a id="page_next" href="?page={{ subscriber.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		  </div>
+	  </div>
+	  
+	  </div>
+	  </div> 
+  </div>
+
+<script type="text/javascript">lib.auth.init();</script>
+<script type="text/javascript">lib.adminprofile.init();</script>
+{% endblock %}

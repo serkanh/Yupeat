@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block title %}Confirmation {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="append-1 span-22 prepend-1 append-bottom clearfix"> 
+	<a href="https://yupeat.appspot.com/order/{{city}}">
+		<div class="logo span-16"></div>
+		{% include 'profile/login_navbar.html'%}
+	</a>
+	
+	<hr/>
+	
+	<div>
+		<h2>Gift subscription redeemed! Welcome to Yupeat.</h2>
+	</div>
+	<div>Use your email and newly saved password to sign in and place your orders with Yupeat. To see today's meal 
+	click <a href="https://yupeat.appspot.com/order/{{city}}">here</a>.</div>
+   </div>
+	<div class="append-1 span-22 prepend-1 append-bottom"> 
+	<div class="social">
+		<div>
+			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=228782430467227&amp;xfbml=1"></script>
+			<fb:like href="http://www.facebook.com/pages/Yupeat/190251191025465" send="false" layout="button_count" width="450" show_faces="true" font=""></fb:like>
+		</div>
+	</div>
+	</div>
+</div>
+
+{% endblock %}

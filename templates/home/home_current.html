@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+{% load meal_extras %}
+
+{% block messaging %}
+<div id="js-messages-login-top" class="error" style="display:none"></div>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+	<div class="append-1 span-22 prepend-1">
+		<div class="span-22">
+			<div class="span-16">
+			<a href="http://www.yupeat.com/"><div class="logo landing"></div></a>
+			</div>
+			{% include 'profile/login_navbar.html' %}
+		</div>
+		
+		<div class="append-1 span-22 prepend-1">
+			<div class="prepend-7 span-13 more-nav">
+				<nav>
+				<ul class="prepend-2 span-11">
+					<li><a href="/what" title="Learn more about Yupeat">What is Yupeat?</a></li>
+					<li><a href="/about" title="Learn more about our team">About Us</a></li>
+					<li class="start_nav"><a href="/signup/sanfrancisco">Start Service Today</a></li>
+				</ul>
+				</nav>
+			</div>
+		</div>
+		
+		<!--<div class="banner v4 prepend-top"></div>-->
+		<div id="slides" class="banner span-22">
+			<input id="media_url" type="hidden" val={{media_url}} />
+			{% include "home/slides-container.html" %}
+		</div>
+		
+		<div class="modal_form span-18" id="x_signup">
+			<div class="headline">One meal idea. One click. Prepaid, prebagged items ready to go.</div>
+			<div class="span-18">
+				<form method="post" name="landing_form" id="landing_form" action=".">{% csrf_token %}
+				
+				<fieldset class="span-7">
+					<label>Email:</label>
+					{{form.email}}
+					{% if form.email.errors %}{{ form.email.errors}}<br/>{% endif %}
+				</fieldset>
+				
+				<fieldset class="span-6">
+					<label>Select a City:</label>
+					<select id="select_city" class="span-5" name="select_city">
+					{% for cl in city_list %}
+					<option value="{{cl|slugify}}">{{cl}}</option>
+					{% endfor %}
+				</select>
+				</fieldset>
+				
+				<fieldset class="span-3 xpadding">
+				<button class="rounded-corners span-3 prepend-top" id="signup" type="submit">Continue</button>
+				</fieldset>
+				</form>
+			</div>
+			<div class="subtext prepend-1 span-16 append-1">Cook great food at home.</div>
+		</div>
+		
+		{% if meal_on %}
+		<div class="todaysmeal span-22 clearfix">
+			<div class="append-bottom">
+				
+				<h2>LIVE IN SAN FRANCISCO? TODAY'S MEAL</h2>
+				<h4>We're buying ingredients for 
+				<a href="https://yupeat.appspot.com/order/sanfrancisco/">{{rname}}</a>.</h4>
+				<div class="todaysmeal_container span-22 clearfix">
+					
+					<div class='prepend-2 span-7'>
+						<div class='todaysmeal_photo'>
+						<a href="https://yupeat.appspot.com/order/sanfrancisco/"><img src="{{image}}=s240"/></a>
+						<div class='xsmall right'>{{rname}} adapted from {{rattr|url_cleanup}}</div>
+						</div>
+					</div>
+					
+					<div class='span-11'>
+						<div class='expire_date'>{{ date_today|date:"l F jS" }}</div>
+						<div id="meal_expire" class="defaultCountdown_container"></div>
+						
+					</div>
+					<input id='year' type="hidden" value='{{year}}' />
+					<input id='month' type="hidden" value='{{mn}}' />
+					<input id='day' type="hidden" value='{{dn}}' />
+					
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		
+		<div class="howitworks span-22 clearfix">
+			<h2>HOW IT WORKS</h2>
+			<ul>
+				<li class="cleanbox left">
+					<h3>One delicious meal per day in your inbox</h3>
+					<div class="gmail"></div>
+					<p>Sign up to get an email everyday with a recipe, details
+					on how to prepare it, and the list of items we buy for you.</p>
+				</li>
+				<li class="cleanbox left">
+					<h3>Place an order before end of workday</h3>
+					<div class="iphone"></div>
+					<p>Select a pick-up location then purchase your order
+					online.</p>
+				</li>
+				<li class="cleanbox left end">
+					<h3>Pick up ingredients from nearby grocer</h3>
+					<div class="groceries"></div>
+					<p>We buy the ingredients and bag them just in time
+					for you to pick it up. No lines, no fuss!</p>
+					
+				</li>
+			</ul>
+		</div>
+		
+		
+		<div class="promotions span-22 clearfix">
+			<div id="promos">
+				<div class='span-10 holiday promo-border'>
+					<h3>GIFT SUBSCRIPTIONS</h3>
+					<div class="holiday-gift">
+						<p>Give the gift of home cooked food. <a href="/gifts">Start here</a> </p>
+					</div>
+				</div>
+				<div class='span-10 vote'>
+					<h3>PICK FAVORITES AND SAVE</h3>
+					<div class="vote-save">
+						<p>Nominate your favorite recipes. If your recipe is top voted
+						by users you get 1/2 off your next order. <a href="/gift">Start here</a></p>
+					</div>
+					<div class="chef-champ"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="inspiration span-22 clearfix">
+			<div class="append-bottom">
+				<h2>SOURCES OF INSPIRATION</h2>
+				<h4>A small sample of where we find our inspiration.</h4>
+			</div>
+			<div class="inspire"></div>
+		</div>
+		<hr/>
+		<div class="userfeedback clearfix">
+			<ul class="clearfix">
+				<li class="quotebox left">
+					<p>"I just finished cooking and eating dinner, and 
+					my roommate and I were definitely impressed! I think
+					this concept is really great."</p>
+					<cite>LAUREN B., SAN FRANCISCO</cite>
+				</li>
+				<li class="quotebox left end">
+					<p>"The meal came together very well and was delicious! I 
+					really appreciated the 'estimated time' and it was pretty accurate too!"</p>
+					<cite>TOMMY G., VANCOUVER</cite>
+				</li>
+				<li class="quotebox left">
+					<p>"We just finished the meal and loved it. Our dinner guest loved it as well.
+					I'll definitely continue using the service..."</p>
+					<cite>JON G., SAN FRANCISCO</cite>
+				</li>
+			</ul>
+		</div>
+		<hr/>
+		<div class="testimonial span-22 rounded-corners append-bottom clearfix">
+			<div class="press">
+				<div class="thrillist span-2"></div>
+				<div class="span-18 callout">
+					Grocery shopping in San Francisco can oftentimes be a huge physical challenge...
+					cutting out your biggest obstacle to making double-daring meals at home, Yupeat.
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+{% endblock %}
+
+{% block load_js %}
+{% include_media 'main.js' %}
+<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA0cpX06xTSo-ogY4hTVCRiRRPSt3D7GhkBrgiUqA3INr_iSsKmhQlOcRTLnJ7wp9bqfOYS0bQQvL9Tw"></script>
+<script type="text/javascript">lib.auth.init();</script>
+<script type="text/javascript">lib.main.init();</script>
+<script type=" text/javascript">lib.signup.init();</script>
+{% endblock %}
+

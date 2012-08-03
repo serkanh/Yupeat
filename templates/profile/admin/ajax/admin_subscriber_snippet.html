@@ -1,0 +1,41 @@
+<hr/>
+  {% regroup subscriber.object_list by subscription_type as sub_list %}
+  <div class="span-22 prepend-top append-bottom">
+  <table class='subscriber-stats'>
+  	<tr>
+		<td><b>Subscriber Profile</b></td>
+		<td><b>Subscription Type</b></td>
+	</tr>
+	{% for sub in sub_list %}
+	
+	{% for s in sub.list %}
+	<tr>
+		<td><a href='/profile/admin/manage/details/{{s.userprofile.user.id}}'>{{s.userprofile.user.email}}</a></td>
+		<td>{{s.subscription_type}}</td>
+	</tr>
+	{% endfor %}
+	
+	{% endfor %}
+  </table>
+  
+  <!-- Pagination -->
+	  <div id="admin_profile_pagination">
+		  <div class="pagination xsmall">
+		    <span class="step-links">
+		        {% if subscriber.has_previous %}
+		            <a id="page_previous" href="?page={{ subscriber.previous_page_number }}">previous</a>
+		        {% endif %}
+		
+		        <span class="current">
+		            Page {{ subscriber.number }} of {{ subscriber.paginator.num_pages }}.
+		        </span>
+		
+		        {% if subscriber.has_next %}
+		            <a id="page_next" href="?page={{ subscriber.next_page_number }}">next</a>
+		        {% endif %}
+		    </span>
+		  </div>
+	  </div>
+  
+  </div>
+

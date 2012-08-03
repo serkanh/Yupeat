@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Admin (All Recipes){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block admin_navbar %}
+	{% include 'profile/admin/admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container"> 
+	      <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+              <div class="logo"></div>
+          </div>
+          <div class="append-1 span-22 prepend-1 prepend-top">
+              <h2>Soldout</h2>
+			  <table>
+              	{% for s in store %}
+				<tr class="{% cycle '' 'even' %}">
+					<td><a href="/order/admin/soldout/{{s.id}}">{{s.store_name}}</a>, 
+					{{s.street1}}, {% if s.street2 %}{{s.street2}},{% endif %} {{s.city}} {{s.state}}</td>
+				</tr>
+				{% endfor %}
+              </table>
+          </div>
+</div>
+{% endblock %}

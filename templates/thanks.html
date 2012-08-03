@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block title %}{{recipe.name}} {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+{% endblock %}
+{% block header %}{% endblock %}
+
+{% block ab %}
+{% include 'home/conversionjs.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="append 1 span-22 prepend-1">
+	<a href="http://www.yupeat.com/"><div class="logo"></div></a>
+	<div class="banner">
+	<h1>Thanks!</h1>
+	
+	<h3>Pre-purchased and <br/>
+	bagged meal ingredients <br/>
+	ready for you after work</h3>
+	
+	</div>
+	<div class="cta strongbgnd rounded-corners clearfix">
+		<span>Thanks! We'll let you know as soon as we make it to your city.</span><br/>
+		<p>Live in San Francisco? Click <a href="https://yupeat.appspot.com/signup/sanfrancisco/">here</a> and sign-up today. 
+		If not, be sure to check your email to learn how to get yupeat to your city faster.</p>
+		 <div class="social">
+			<div>
+				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="yupeat">Tweet</a>
+				<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>	
+			</div>
+			<div>
+			<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=228782430467227&amp;xfbml=1"></script>
+			<fb:like href="http://www.facebook.com/yupeat" send="false" layout="button_count" width="450" show_faces="true" font=""></fb:like>
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

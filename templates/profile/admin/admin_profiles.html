@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Admin (Profiles){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block content %}
+ 
+  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+  	<div class="logo"></div>
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+	  
+	  <form action="." method="POST">{% csrf_token %}
+	  <div class="edit_user">
+	  {{form.as_p}}
+	  </div>
+	  <hr />
+	  <button type="submit" class="positive"><img src="{% media_url 'css/blueprint/plugins/buttons/icons/tick.png' %}">Save</button>
+	  <button type="submit" class="negative"><img src="{% media_url 'css/blueprint/plugins/buttons/icons/cross.png' %}">Cancel</button>
+	  
+	  </form>
+	  
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+      <table>
+      	{% for u in users %}
+		<tr>
+			<td>{{u.username}}</td>
+		</tr>
+		{% endfor %}
+      </table>
+  </div>
+
+{% endblock %}

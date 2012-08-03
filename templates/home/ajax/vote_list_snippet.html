@@ -1,0 +1,56 @@
+{% load meal_extras %}
+
+      {% if vote %}
+      <ol>
+          {% for v in vote %}
+        <li><div>
+            
+            {% if logged_in %}
+            <a herf="#" id="clickvote{{v.id}}-active" class="clickvote" value="{{v.id}}">
+                {% if v.id|past_vote:prev_votes %}
+                    <div id="upvote-{{v.id}}-inactive" class="upvote-inactive"></div>
+                {% else %}
+                    <div id="upvote-{{v.id}}-active" class="upvote"></div>
+                {% endif %}
+            </a>
+            {% else %}
+            <div>
+            <a herf="#" id="clickvote{{v.id}}" class="clickvote" value="{{v.id}}">
+                <div id="upvote{{v.id}}" rel="{{v.id}}" class="upvote-visible-inactive" onclick='$("#upvote{{v.id}}").tipsy("show"); return false;' ></div>
+            </a>
+            
+            <!--- START TOOL TIP --------->
+            
+            <div id="login-to-vote{{v.id}}" style='display:none'>
+              <a class="close-it tooltip-dismiss" onclick='$("#upvote{{v.id}}").tipsy("hide");'><span>x</span></a>
+            <p class="tooltip-header" id="tooltip-header-text">
+                You must login to vote.
+            </p>
+            <div class="tooltip-body">
+                Login to vote for this recipe. Don't have an account? <a href="/signup/sanfrancisco" class="tooltip-link auth-register">Create One.</a>
+            </div>
+            <ul class="tooltip-actions group">
+                <li><a href="/signup/sanfrancisco" class="btn login-btn">Join Yupeat!</a></li>
+                    <li><a href="/profile/login/?next=/vote" class="btn login-btn">Login</a></li>
+            </ul>
+          </div>
+            
+            <!--- END TOOL TIP ------> 
+            
+            {% endif %}
+            
+            <div>
+                <div><span class='count'><strong>{{v.count}}</strong></span> <a href="{{v.url}}">{{v.name}}</a> </div>
+                <div class='vote_list_details'>
+                    <span class='vote_url'>{{v.url|url_cleanup}}</span> -
+                    submitted <span>{{v.created_on|pretty_date}}</span>
+                    by {{v.contributor.user.username|clean_email}}</span> 
+                </div>
+            </div>
+            </div>
+        </li>
+        
+        {% endfor %}
+      </ol>
+      {% endif %}
+    </div>

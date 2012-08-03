@@ -1,0 +1,16 @@
+
+	<div id="coupon_box" class="row span-16 last coupon_code">
+		<div class="span-12 coupon_lead indent">{{percent}}% Discount Applied</div>
+		<div id="discount" class="span-2 red">({{discount_amount}})</div>
+		<div class='span-2 remove last'>
+			<a id='remove_coupon'>remove</a>
+		</div>
+	</div>
+	
+	<div class="row span-16 last total append-bottom">
+		<div class="span-12 indent">Total</div>
+		<div id="total" class="span-2">{{new_total}}</div><div class='span-2 coupon last'>
+		</div>
+		<input id="confirm_total" name="confirm_total" type='hidden' value={{new_total}} />
+		<input id="confirm_coupon" name="confirm_coupon" type='hidden' value={{coupon}} />
+	</div>

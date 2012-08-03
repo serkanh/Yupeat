@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% load media %}
+{% load filetransfers %}
+
+{% block content %}
+
+ <div class="append-1 span-22 prepend-1">
+	<a href="http://www.yupeat.com/"><div class="logo"></div></a>
+    <hr/>
+	<div class="pricing span-18 prepend-top">
+		<h1>Sign up for an unlimited subscription today and get 50% off of your first meal order.</h1>
+		
+		<p> Not ready to take the leap? No worries, try out the service and simply pay a small per order charge.</p>
+		
+		<p>Want to see Yupeat in action? <a href="https://yupeat.appspot.com/order/sanfrancisco">Click here</a></p>
+		
+		<div class="prepend-top pricing_box span-18 append-bottom">
+			<div class="pricing_icon span-4">
+				<img src="{% media_url 'images/icons/pricing_icon_one.jpg' %}"/>
+			</div>
+			<div class="pricing_title span-8">
+				<div>Per Order Charge</div>
+			</div>
+			<div class="pricing_price span-4">
+				<div>$3.99/order</div>
+				<div>
+					<a class="price_link" href="/signup/sanfrancisco">
+						<button class="price_button">Sign-up Today</button>
+					</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="prepend-top pricing_box span-18 append-bottom">
+			<div class="pricing_icon span-4">
+				<img src="{% media_url 'images/icons/pricing_icon.jpg' %}"/>
+			</div>
+			<div class="pricing_title span-8">
+				<div>Unlimited Orders</div>
+			</div>
+			<div class="pricing_price span-4">
+				<div>$14.99/month</div>
+				<div>
+					<a class="price_link" href="/signup/sanfrancisco">
+						<button class="price_button">Sign-up Today</button>
+					</a>
+				</div>
+			</div>
+		</div> 
+	</div>
+ </div>
+
+{% endblock %}

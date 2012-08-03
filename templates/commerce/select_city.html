@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block title %}Confirmation {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="append-1 span-22 prepend-1 append-bottom clearfix"> 
+	<a href="https://yupeat.appspot.com/order/{{city}}">
+		<div class="logo span-16"></div>
+	</a>
+	<hr/>
+	
+	<div>
+		<h2>Select a city:</h2>
+	</div>
+	<div>
+		<form action="." method="POST">{% csrf_token %}
+		<select id="select_city" class="select_city" name="select_city">
+			{% for c in city %}
+			<option value="{{c.0}}">
+				{{c.1}}
+			</option>
+			{% endfor %}
+		</select>
+		<div class="prepend-top">
+		<button class="truebutton">Next</button>
+		</div>
+		</form>
+	</div>
+   </div>
+	<div class="append-1 span-22 prepend-1 append-bottom"> 
+	
+	</div>
+</div>
+
+{% endblock %}

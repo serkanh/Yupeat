@@ -1,0 +1,67 @@
+
+	<div class="headline">{{prospect_msg}}</div>
+	<div class="span-18">
+		{% if other %}
+			<div class="prepend-3 span-12 append-3">
+			<form method="post" name="othercity_form" id="othercity_form" action=".">
+				<input type="hidden" name="csrfmiddlewaretoken" value={{ csrf_token }}></input>
+			<fieldset class="span-7">
+				<label>Postal code:</label>
+				{{form.postal_code}}
+				{% if form.postal_code.errors %}{{ form.postal_code.errors}}<br/>{% endif %}
+			</fieldset>
+			
+			<fieldset class="span-3 xpadding">
+			<input name="email" type="hidden" value={{prospect.email}}></input>
+			<button class="rounded-corners span-3 prepend-top" id="continue" type="submit">Continue</button>
+			</fieldset>
+			</form>
+			</div>
+		{% endif %}
+		
+		{% if active_city %}
+			<div class="prepend-2 span-16 subscribe_cta">
+			<div class="span-10 cta">Subscribe today for unlimited service and get
+			 <u>50% off</u> your first meal!</div>
+			<div class="prepend-1 span-3">
+				<div class="subscribe-big-text">
+					<span class="dollar">$</span><span class="lower">14</span><span class="upper">99</span>
+				</div>
+				<div class="clearfix">
+					<button class="rounded-corners span-3" id="cta_subscribe" type="submit" city="{{city}}">
+						Subscribe
+					</button>
+				</div>
+			</div>
+			</div>
+		{% endif %}
+		
+		{% if social %}
+			<div class="social_cta prepend-top append-bottom prepend-5 span-8 append-5">
+			&nbsp;
+			<div class="social_button">
+			<div class="span-2">
+				<a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="yupeat">Tweet</a>
+				<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>	
+			</div>
+			<div class="span-2">
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) {return;}
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/en_US/all.js#appId=233983963320687&xfbml=1";
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+			
+			<div class="fb-like" data-href="yupeat.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+			</div>
+			</div>
+			&nbsp;
+			</div>
+		{% endif %}
+		
+	</div>
+	<div class="subtext prepend-1 span-16 append-1">
+		{{sub_msg|safe}}
+	</div>

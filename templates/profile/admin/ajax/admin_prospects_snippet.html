@@ -1,0 +1,20 @@
+  <hr/>
+  <div class="span-22 prepend-top append-bottom">
+  
+  <table class='prospect-stats'>
+  	<tr>
+		<td><b>Prospective User Email</b></td>
+		<td><b>Sign-up Date</b></td>
+	</tr>
+	
+	{% for email,timestamp in prospect_objects %}
+	<tr>
+		<td>{{ email }}</td>
+		<td>{{ timestamp }}</td>
+	</tr>
+	{% endfor %}
+	
+  </table>
+  
+  </div>
+  

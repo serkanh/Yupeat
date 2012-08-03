@@ -1,0 +1,9 @@
+{% load i18n %}
+
+Yup, no more service fees! Welcome to Yupeat's Unlimited Subscription.
+
+You're now among the Yupeat elite. You keep Yupeat service alive and thriving and for that we're eternally grateful.   
+
+Use the following coupon code to redeem your 50% off meal anytime: {{coupon_code}}
+
+Ray + The Yupeat Team

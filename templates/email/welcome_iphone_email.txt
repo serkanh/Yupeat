@@ -1,0 +1,24 @@
+{% load i18n %}
+
+WooHoo! Welcome to Yupeat. Soon you'll begin receiving one notification per day with a description 
+of a meal and the ingredients that you can order using our service. 
+
+More about how it works:
+
+1. Once per day you receive a notification with a meal idea.
+
+2. If you dig it, review the list of ingredients to deselect items you already have at home.
+
+3. Place an order anytime before 4:30p and pick-up between 5-7p curbside, 
+at any one of the listed locations:
+
+{% for s in stores %}
+
+{{s.store_name}} {{s.street1}}
+ 
+{% endfor %}
+
+If you have questions or feedback feel free to contact us at support@yupeat.com.
+We'll see you soon. Thanks!
+
+Ray + The Yupeat Team

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Order Ingredients | Yupeat </title>
+		{% load media %}
+		{% include_media 'main.js' %}
+		
+		<style type="text/css">
+			.centered_content {
+				font-family: Helvetica, sans-serif;
+				font-size:14px;
+				-webkit-box-shadow: 0px 5px 80px #505050;
+				background: white;
+				border: 1px solid #BCC1D0;
+				border-radius: 2px;
+				width: 75%;
+				padding: 0;
+				margin:40px auto 0px auto;
+				position: relative;
+				color:#444;
+			}
+			
+			#id_title{
+				background: -webkit-linear-gradient(white, #F8F8F8);
+				border-bottom: 1px solid rgba(188, 193, 208, .5);
+				font-size: 18px;
+				font-weight: bold;
+				padding: 20px 15px 18px 15px;	
+			}
+			
+			.action_area{
+				padding: 20px 15px 25px 15px;
+			}
+			
+			button{
+				cursor: pointer;
+				font-weight: 500;
+				font-size: 18px;
+				overflow: visible;
+				width: auto;
+				zoom: 1;
+				border-radius: 5px;
+				-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+				text-decoration:none;
+				
+				box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+				-o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+				-moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+				-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+				
+				background: -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+				background: -moz-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+				background: -o-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+				background: linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+				
+				border: 1px solid #AAA;
+				color: #444;
+				margin-bottom: 0px;
+				min-width: 4em;
+				padding: 3px 12px 3px 12px;
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<div class="centered_content">
+			<div class="action_area">
+				{% if override %}
+				
+				{% if parseError %}
+					<h1>Sorry, we weren't able to pick out the ingredients.</h1>
+					<p>Try a different recipe page on this website.</p>
+				{% else %}
+					<h1>Sorry, we didn't find any ingredients on this page.</h1>
+					<p>Try a different recipe page on this website.</p>
+				{% endif %}
+				
+				{% else %}
+				<h1>Sorry, you can't order ingredients for this website.</h1>
+				<p class='quiet'>If you'd like this URL included in our list of 
+				websites let us know.</p>
+				{% endif %}
+			</div>
+		</div>
+	</body>
+</html>

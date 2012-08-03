@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+{% load meal_extras %}
+ 
+{% block title %}{{recipe.name}} {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container"> 
+  <div class="append-1 span-22 prepend-1 append-top prepend-bottom">
+     <a href="https://yupeat.appspot.com/order/sanfrancisco"><div class="logo span-16"></div></a>
+	 {% include 'profile/login_navbar.html' %}
+  </div>
+  
+  <div class="append-1 span-22 prepend-1"><hr/>
+  <div class="span-15 column">
+  	<div id="recipe_head"><h1>{{recipe.name}}</h1></div>
+	<div id="recipe_subhead"><h3>
+		Servings: <span>{{recipe.serv}}</span> / Cooktime: <span>{{recipe.cooktime}} minutes</span></h3>
+	</div>
+	</div>
+	
+  <div id="recipe_image" class="span-4 push-2 column last">
+	<div class="span-6">
+		<img class="double-border" src="{{image}}=s180"/>
+	</div>
+  </div>
+  <div class="span-22 attribution">
+  	<span>Source:</span>  <a href="{{recipe.attribution}}">{{recipe.attribution|url_cleanup}}</a> (adapted from)
+  </div>
+  
+  </div>
+  <div class="append-1 span-22 prepend-1"> 
+	<div id="ingredients_full" class="column colborder span-10">
+		<h2>Ingredients</h2>
+		<div>
+		{% for i in ingredients %}
+			<div class="prepend-1 list clear span-9">{{i|safe}}</div>
+		{% endfor %}
+		</div>
+	</div>
+	<div id="directions_full" class="column span-10 last">
+		<h2>Directions</h2>
+		
+		{% for d in directions %}
+			<p>{{d|safe}}</p>
+		{% endfor %}
+		
+	</div> 
+  </div>
+  
+</div>
+
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

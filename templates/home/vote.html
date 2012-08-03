@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load meal_extras %}
+
+{% block title %}Vote for a Dish | Yupeat{% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+	{% if messages %}
+	<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div id='get_url_placeholder' style='display:hidden'></div>
+
+ <div id="jquery_snippets"></div>
+  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+  	<div class="logo span-16"></div>
+	{% include 'profile/login_navbar.html' %}
+    <hr/>
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+	  
+	  <form action="." method="POST">{% csrf_token %}
+	  
+	  <div class="loud span-22 last">
+	  	<span class='vote_title'><strong>Vote On Your Favorite Meals</strong></span>
+		<span class='vote_subtitle'>We'll buy ingredients for the highest rated recipes!</span>
+		
+		<div class="prepend-top span-21 vote_box append-bottom">
+			<div class='meal_challenge'><strong>Think you can do better?</strong> <br/>
+			Nominate a recipe. If it's top rated by the end
+			of the week* you'll win a code for <u>50% off</u> ingredients on your next order.
+			</div>
+			<div id="attach_url">
+				<input id="url_val" class="url_inputbox" type='text'/>
+				
+				{% if logged_in %}
+				<input id="get_url" class="url_attach" type="submit" value='Attach' />
+				{% else %}
+				<input id="get_url-inactive" class="url_attach" 
+					type="submit" value='Attach' onclick='$(this).tipsy("show"); return false;'/>
+				{% endif %}
+				
+			<div id="login-to-vote-url" style='display:none'>
+			  	<a class="close-it tooltip-dismiss" onclick='$("#get_url-inactive").tipsy("hide"); return false;'><span>x</span></a>
+				<p class="tooltip-header" id="tooltip-header-text">
+				    You must login to vote.
+				</p>
+				<div class="tooltip-body">
+				    Login to vote for this recipe. Don't have an account? <a href="/signup/sanfrancisco" class="tooltip-link auth-register">Create One.</a>
+				</div>
+				<ul class="tooltip-actions group">
+					<li><a href="/signup/sanfrancisco" class="btn login-btn">Join Yupeat!</a></li>
+				        <li><a href="/profile/login/?next=/vote" class="btn login-btn">Login</a></li>
+				</ul>
+			  </div>
+				
+				
+			</div>
+			<div id="vote_form" class="vote_form span-12" style='display:none;'>
+				{{form.as_p}}
+				<button class='truebutton right' />Nominate Recipe</button>
+			</div>
+		</div>
+		
+		<div id="vote-sort" class="vote-sort span-22">
+			<ul>
+				<li><a class="filter active" id="topvoted" href="">Top Voted</a></li>
+				<li><a class="filter" id="recent" href="">Recent</a></li>
+				<li><a class="filter" id="pastfeatured" href="">Past Featured</a></li>
+				{% if logged_in %}<li><a class="filter" id="yourpicks" href="">Your Picks</a></li>{% endif %}
+			</ul>
+		</div>
+		
+		<div id="vote_list" class="prepend-top span-22 append-bottom vote_list">
+		  {% if vote %}
+		  <ol>
+		  	{% for v in vote %}
+			<li><div>
+				
+				{% if logged_in %}
+				<a herf="#" id="clickvote{{v.id}}-active" class="clickvote" value="{{v.id}}">
+					{% if v.id|past_vote:prev_votes %}
+						<div id="upvote-{{v.id}}-inactive" class="upvote-inactive"></div>
+					{% else %}
+						<div id="upvote-{{v.id}}-active" class="upvote"></div>
+					{% endif %}
+				</a>
+				{% else %}
+				<div>
+				<a herf="#" id="clickvote{{v.id}}" class="clickvote" value="{{v.id}}">
+					<div id="upvote{{v.id}}" rel="{{v.id}}" class="upvote-visible-inactive" onclick='$("#upvote{{v.id}}").tipsy("show"); return false;' ></div>
+				</a>
+				
+				<!--- START TOOL TIP --------->
+				
+				<div id="login-to-vote{{v.id}}" style='display:none'>
+			  	<a class="close-it tooltip-dismiss" onclick='$("#upvote{{v.id}}").tipsy("hide");'><span>x</span></a>
+				<p class="tooltip-header" id="tooltip-header-text">
+				    You must login to vote.
+				</p>
+				<div class="tooltip-body">
+				    Login to vote for this recipe. Don't have an account? <a href="/signup/sanfrancisco" class="tooltip-link auth-register">Create One.</a>
+				</div>
+				<ul class="tooltip-actions group">
+					<li><a href="/signup/sanfrancisco" class="btn login-btn">Join Yupeat!</a></li>
+				        <li><a href="/profile/login/?next=/vote" class="btn login-btn">Login</a></li>
+				</ul>
+			  </div>
+				
+				<!--- END TOOL TIP ------> 
+				
+				{% endif %}
+				
+				<div>
+					<div><span class='count'><strong>{{v.count}}</strong></span> <a href="{{v.url}}">{{v.name}}</a> </div>
+					<div class='vote_list_details'>
+						<span class='vote_url'>{{v.url|url_cleanup}}</span> -
+						submitted <span>{{v.created_on|pretty_date}}</span>
+						by {{v.contributor.user.username|clean_email}}</span> 
+					</div>
+				</div>
+				</div>
+			</li>
+			
+			{% endfor %}
+		  </ol>
+		  {% endif %}
+		</div>
+	  </div>
+	  </form>
+	  
+</div>
+<script type="text/javascript">lib.auth.init();</script>
+<script type="text/javascript">lib.vote.init();</script>
+{% endblock %}

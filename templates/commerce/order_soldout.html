@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block title %}Confirmation {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="append-1 span-22 prepend-1 append-bottom clearfix"> 
+	<a href="https://yupeat.appspot.com/order/{{city}}">
+		<div class="logo span-16"></div>
+		{% include 'profile/login_navbar.html'%}
+	</a>
+	
+	<hr/>
+	
+	<div>
+		<h2><b>Sold Out!</b></h2>
+		<p>We'll be "on like Donkey Kong" again tomorrow with something even more delicious.</p>
+	</div>
+	<div class="soldout_box rounded-corners append-bottom">
+		<b>FAQ</b><br/><br/>
+		<b>What does sold out really mean?</b><br/>
+		The store's run out of a fairly important item (probably meat) and we couldn't find a good alternative. 
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

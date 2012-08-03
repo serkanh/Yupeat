@@ -1,0 +1,16 @@
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=items_item.dump --kind=items_item --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=items_pricehistory.dump --kind=items_pricehistory --url=http://localhost:8000/_ah/remote_api 
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=meals_recipe.dump --kind=meals_recipe --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=paypal_ipn.dump --kind=paypal_ipn --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=prospect_prospect.dump --kind=prospect_prospect --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_couponcode.dump --kind=uprofile_couponcode --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_friendinvites.dump --kind=uprofile_friendinvites --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_invitation.dump --kind=uprofile_invitation --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_order.dump --kind=uprofile_order --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_orderhistory.dump --kind=uprofile_orderhistory --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_savedtransaction.dump --kind=uprofile_savedtransaction --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_subscription.dump --kind=uprofile_subscription --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_userprofile.dump --kind=uprofile_userprofile --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_vote.dump --kind=uprofile_vote --url=http://localhost:8000/_ah/remote_api
+appcfg.py upload_data --application=dev~yupeat-hrd --filename=uprofile_votehistory.dump --kind=uprofile_votehistory --url=http://localhost:8000/_ah/remote_api
+rm bulkloader-*

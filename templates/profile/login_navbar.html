@@ -1,0 +1,42 @@
+{% load media %}
+<div id="login_block" class="login span-5 right">
+ 	{% if user == None %}
+	<div>
+	
+	<a href="login" class="login_btn rounded-corners">
+		<span>
+		Log in &nbsp;  &nbsp;  &nbsp;
+		</span>
+	</a>
+	<span class='login-helper'>Have an account?</span>
+		<fieldset id="signin_menu">
+		    <form method="post" name="sm_login_form" id="sm_login_form" action=".">{% csrf_token %}
+		      <label for="username">Email</label>
+		      <input id="username" name="username" value="" title="username" tabindex="4" type="text">
+		      </p>
+		      <p>
+		        <label for="password">Password</label>
+		        <input id="password" name="password" value="" title="password" tabindex="5" type="password">
+		      </p>
+		      <p class="remember">
+		        <input id="signin_submit" value="Log in" tabindex="6" type="submit">
+		      </p>
+		      <p class="forgot"> <a href="/profile/reset-password" id="resend_password_link">Forgot your password?</a> </p>
+		    <input type="hidden" name="city" value={{city}} />
+			</form>
+		  </fieldset>
+	</div>
+	{% else %}
+		<div>
+			<a href="" class="logout_btn rounded-corners">
+				<span>{{user.username}}</span>
+			</a>
+			<fieldset id="signout_menu">
+				<p class="account"> <a href="/profile/manage/" id="logout">Account</a> </p>
+				<p class="history"> <a href="/profile/order-history/" id="logout">Order/Recipe History</a> </p>
+				<p class="friend"> <a href="/profile/invite-friend/" id="logout">Invite a Friend</a> </p>
+				<p class="logout"> <a href="/profile/logout/?city={{city}}" id="logout">Logout</a> </p>
+			</fieldset>
+		</div>
+	{% endif %}
+</div>

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load commerce_extras %}
+
+{% block title %}{{active_recipe}} {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+	{% if messages %}
+	<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+      <div class="append-1 span-22 prepend-1 append-bottom">
+	      <a href="https://yupeat.appspot.com/order/{{city}}">
+		  <div class="giftlogo span-16"></div>
+		  </a>
+		  
+          <hr/>
+		  <form name="signup_main" action="." method="post">{% csrf_token %}
+		  <div class="span-21 prepend-top subscribe_box append-bottom rounded-corners clearfix">
+			  		<span>Give a Gift - 4 Month Yupeat Subscription <h6>($49.99)</h6></span> 
+					<p>Yupeat is the fastest way to cook a great meal any night of the week. 
+					Share the gift of a 4 month Yupeat subscription with friends and family.</p>
+		  </div>
+		  
+		  <div class="span-21 prepend-top" id="gift-detail">
+			  <h3 class="loud prepend-top"><b>1. Gift Subscription Details</b>
+			  </h3>
+			  <div class="span-12 prepend-top append-bottom giftform">
+			  {{gift.as_p}}
+			  </div>
+			  
+			  <div class="span-8 giftemailexample"></div>
+			  <div class="giftimage-subtitle">Example Gift Subscription Email</div>
+		  </div>
+		  
+		  <hr/>
+		 <div id="payment">
+			 <h3 class="loud prepend-top"><b>2. Payment Options</b>
+			 </h3> 
+			  <div class="span-17 prepend-top append-bottom">
+			  	<div id="billing_address" class="span-8 append-bottom">
+				{{payment.first_name}} {{payment.last_name}}<br>
+				{{payment.street1}}<br>
+				{{payment.street2}}<br>
+				{{payment.city}} {{payment.state}} {{payment.postal_code}}<br>
+				{{payment.country}}<br>
+				</div>
+				<div id="cc" class="span-7 push-1 append-bottom">
+				<img src="{% media_url 'images/icons/cc.png' %}"/>
+				<br/>
+				<!-- Stripe stuff -->
+				<script src="https://js.stripe.com/v0/"></script>
+				<script>
+					Stripe.configure({
+					    pubKey: "pk_FvIKMyVDxRLDb1eKeW2kV0Rul1TLr",
+						//Test
+						//pubKey:"pk_lYbXnRG55by29XymEqyCXySEJy41V",
+						chargeAmount: 4999,
+					})
+				</script>			
+				</div>
+		  		</div>
+				<div id="submit" class="prepend-top span-21 last">
+			 	<div class="subscribe_payment_box append-bottom span-21 rounded-corners">
+			  		<div class="span-12">
+					<div>You will be charged: <span class="green">$49.99</span></div> 
+					<p>By purchasing this gift, you agree to the Yupeat Gift Subscription<a href="/terms">Terms</a></p>
+					</div>
+					<div class="span-8">
+					<button type="submit" id="cta_subscribe" class="greenbutton">Confirm Gift</button><br>
+					</div>
+			  	</div>
+		   </div>
+		  </div>
+		  
+	  </div>
+	  </form>
+	  <div class="append-1 span-22 prepend-1 prepend-top append-bottom"></div>
+
+<script type="text/javascript">lib.gift.init();</script>
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

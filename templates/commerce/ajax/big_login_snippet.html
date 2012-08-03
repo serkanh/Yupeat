@@ -1,0 +1,30 @@
+</form>	
+<div id="payment" class="clearfix prepend-top">
+<form id="login_form" name="login_form" action="." method="post">{% csrf_token %}
+	  	<h3 class="loud prepend-top"><b>3. Payment options</b>
+		<span class="quieter">(log in to place order)</span>
+		</h3>
+		<div id="js-messages-login-bottom" class="error" style="display:none"></div>
+			<div class="span-16">
+			</div>
+			<div class="span-6">
+			<label>Email:</label><br/>
+			{{auth_form.username}}
+			</div>
+			<div class="span-5 push-1">
+			<label>Password:</label><br/>
+			{{auth_form.password}}
+			</div>
+		<input type="hidden" name="city" value={{city}} />
+	
+	<div class="span-13 sub-login last">
+		<a href="/profile/reset-password" id="resend_password_link">Forgot your password?</a>
+	</div>
+	<div id="submit" class="span-16">
+		<div class="span-16">
+			<button id="big_login" class="big_login">Log in</button>
+		</div>
+	</div>
+</form>
+</div>
+			

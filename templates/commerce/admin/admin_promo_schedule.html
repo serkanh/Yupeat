@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load commerce_extras %}
+
+{% block title %}Admin (All Recipes){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block admin_navbar %}
+	{% include 'profile/admin/admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container"> 
+	      <div class="append-1 span-22 prepend-1 prepend-top append-bottom">
+              <div class="logo"></div>
+          </div>
+          <div class="append-1 span-22 prepend-1 prepend-top">
+              <h2>{{store.store_name}}, {{store.city}}</h2>
+			  <table id="meal_select">
+              	{% for day in two_week %}
+				<tr id="{{day|slugify}}" class="{% cycle '' 'even' %}">
+					<td><b>{{day}}</b></td>
+					<td>
+						<span class="green">{{day|promo_meal:promo}}</span></br>
+						{{s_recipes.as_p}}
+					</td>
+					<td><a href="/order/admin/schedule/{{store.id}}/{{day|slugify}}/">Update Details</a></td>
+				</tr>
+				{% endfor %}
+              </table>
+          </div>
+</div>
+
+<script type="text/javascript">lib.schedule.init();</script>
+{% endblock %}

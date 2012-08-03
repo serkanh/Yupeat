@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load meal_extras %}
+
+{% block title %} Order in San Francisco | Yupeat {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	<script type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?sensor=false"></script>
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+	<div id="js-messages-login-top" class="error" style="display:none"></div>
+	{% if disabled %}
+		<div class="messages">
+			<p class="alert">Pickup service is temporarily suspended. Read more 
+			<a href="http://blog.yupeat.com/post/17580628878/the-future">here</a>.</p>
+		</div>
+	{% endif %}
+	
+	{# if not_subscribed #}
+		<!--<div class="messages">
+			<p class="info">Want to place an order? Become a <a href="/profile/subscribe/">subscriber</a></p>
+		</div>-->
+	{# endif #}
+	
+	{% if messages %}
+	<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+	      <div class="append-1 span-22 prepend-1 append-bottom">
+             <div class="logo span-16"></div>
+			 {% include 'profile/login_navbar.html' %}
+          <hr/>
+		  </div>
+		  
+          <div class="prepend-4 span-16 prepend-top append-bottom">
+              
+			  <form id="{% if customer %} order_form_card_saved {% else %} order_form {% endif %}" 
+			  		name="order_form"  action="." method="post">{% csrf_token %}
+			  
+			  <div id="ingredients" class="append-bottom clearfix">
+              	<div class="order-description-box clearfix rounded-corners append-bottom">
+					<div class="description-box-main clearfix">
+					<div class="order-description span-8 ">
+					{% for r in recipes %}
+					<b><a href="/meals/details/{{r.id}}">{{r.name}}</a></b> <span class="small quiet">(click for full recipe)</span>
+					{% if not forloop.last %}, {% endif %}
+					
+					<span class="sub-summary clearfix">
+						Cooktime: {{r.cooktime}} mins
+						<br> Servings: {{r.serv}} 
+					</span>
+				
+					<input name="recipe_id" type='hidden' value={{r.id}} />
+					{% endfor %}
+					</div>
+					<div class="span-6 last">
+						<img class="order-image double-border" src="{{image}}=s180"/>
+					</div>
+					</div>
+					
+				<div class="source span-16 last">
+				{% for r in recipes %}
+				<span>Source:</span>  <a href="{{r.attribution}}">{{r.attribution|url_cleanup}}</a>
+				{% endfor %}
+				</div>
+				</div>
+				
+				{% if error_msg %} <div class="alert">{{error_msg}}</div> {% endif %}
+				
+				<div id="items-for-purchase" class="clearfix">
+					
+				<h3 class="loud prepend-top"><b>1. Ingredients included with this purchase </b>
+				<span class="sub-title more-quiet">Uncheck the ingredients you already have 
+				(common items are unchecked by default)</span>
+				</h3>
+				
+				<input id="date_now" name="now" type="hidden" value={{now}}>
+				{% for ex in excluded %}
+				<input class="excluded_items" name="exclude" type="hidden" value={{ex}}>
+				{% endfor %}
+				
+				<div class="ingrtable rounded-corners clearfix prepend-top">
+				{% for i, p in items.items %}
+				<div class="row span-16 last {% cycle '' 'even' %} dotted">
+					<div class="span-12 item"><input class="item_checkbox" checked price="{{p}}" type="checkbox" name="{{i|slugify}}" value="{{p}}" />{{i}}</div>
+					<div class="span-4 last price" name={{i|slugify}}>{{p}}</div>
+				</div>
+				{% endfor %}
+				</div>
+				<div class="row span-16 last service_fee prepend-top">
+					<div class="span-12 indent">Service Fee</div>
+					<div id="servicefee" class="span-4 last {% if subscribed %}strike{% endif %}">3.99</div>
+					
+					{% if not_subscribed %}
+					<input id="not_subscribed" name="subscribed_value" type='hidden' value='True' />
+					{% endif %}
+					
+					<input id="servicefee" name="confirm_servicefee" type='hidden' value=3.99 />
+				</div>
+				
+				<div id='coupon_total_group'>
+					<div id="coupon_box" class="row span-16 last coupon_code" style='display:none;'>
+						<div class="span-3 coupon_lead indent">Coupon</div>
+						<div class="span-11">
+							<div id='coupon_error' class='red xsmall' style='display:none'></div>
+							<input id="coupon_entry" class='coupon_entry' name='coupon' type='text' />
+							<input id="coupon_submit" type='submit' value='Apply Coupon' />
+						</div>
+						<div class="span-2 coupon_lead last"><a id="cancel_coupon" class='cancel_coupon'>cancel</a></div>
+					</div>
+					
+					<div class="row span-16 last total append-bottom">
+						<div class="span-12 indent">Total</div>
+						<div id="total" class="span-2">{{total}}</div><div class='span-2 coupon last'>
+							<a id='coupon'>Coupon?</a>
+						</div>
+						<input id="confirm_total" name="confirm_total" type='hidden' value={{total}} />
+						<input id="confirm_coupon" name="confirm_coupon" type='hidden' value={{coupon}} />
+					</div>
+				</div>
+			  </div>
+			  
+			  </div>
+			  <hr/>
+			  
+			  <div id="location" class="clearfix">
+			  	<h3 class="loud prepend-top"><b>2. Choose pick-up time for {{day}}</b></h3>
+				
+				<div id="address" class="span-8 append-bottom">
+					<p>{{store.store_name}}<br/>
+					{{store.street1}}<br/>
+					{{store.city}}, {{store.state}} {{store.postal_code}}<br/>
+					{{store.country}}
+					</p>
+					<div><p>
+						<a id="change_location" href="/order/{{city}}/?change_location=True">Change pickup location</a>
+						<select style="display:none" id="new_location" class="new_location" name="new_location" city="{{city}}" >
+						{% for s in store_all %}
+						<option value="{{s.id}}" {% if s.id == store.id %} selected {% endif %}>
+							{{s.store_name}}, {{s.street1}}
+						</option>
+						{% endfor %}
+						</select>
+						
+						</p>
+					</div>
+					<div class="pickup_time_box rounded-corners">
+						Select pick-up time:
+						<select id="pickup_time" class="pickup_time" name="pickup_time">
+			  				{% for time in pickup_time %}
+							<option value="{{forloop.counter}}" {% if forloop.counter == default_pickup_time %} selected {% endif %}>
+								{{time}}
+							</option>
+							{% endfor %}
+						</select>
+						<input id="store_id" name="store_id" type='hidden' value={{store.id}} />
+					</div>
+				</div>
+				<div id="map" class="span-7 push-1 last append-bottom">
+					{{map.map}}
+				</div>
+			  	</div>
+			  
+			  <hr />
+			  
+			  {% if paypal %}
+			  		{% include 'commerce/canada_payment.html' %}
+			  {% else %}
+			      	{% include 'commerce/us_payment.html' %}
+			  {% endif %}
+			  
+		  </div>
+		  
+		  <div class="append-1 span-22 prepend-1 prepend-top append-bottom"></div>
+
+<script type="text/javascript">lib.order.init();</script>
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

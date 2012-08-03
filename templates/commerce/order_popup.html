@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Order Ingredients | Yupeat </title>
+		{% load media %}
+		{% include_media 'main.js' %}
+		
+		{% block css %}
+		{% include_media 'popup.css' media='screen' %}
+		{% endblock %}
+		
+	</head>
+	<body>
+		<div class="centered_content">
+			<div id="id_title">{{title}}</div>
+			
+			<div class="action_area">
+				<div id="items-for-purchase" class="clearfix">
+					<div class="center">
+						<h3 class="loud prepend-top"><b>1. Ingredients included with this purchase </b>
+						<span class="sub-title more-quiet">Uncheck the ingredients you already have 
+						(common items are unchecked by default)</span>
+						</h3>
+					</div>
+					
+					<div class="ingrtable clearfix">
+					{% for i,p in items.items %}
+					<div class="row span-16 last {% cycle '' 'even' %} dotted">
+						<div class="span-12 item"><input class="item_checkbox" checked price="{{p}}" type="checkbox" name="{{i|slugify}}" value="{{p}}" />{{i}}</div>
+						<div class="span-4 last price" name={{i|slugify}}>{{p}}</div>
+					</div>
+					{% endfor %}
+					</div>
+				</div>
+				
+				
+				<div id="fee-total-group" class="clearfix">
+					<div class="row span-16 last total prepend-top append-bottom">
+						<div class="span-12 indent">Total</div>
+						<div id="total" class="span-4">{{total}}</div>
+						<input id="confirm_total" name="confirm_total" type='hidden' value={{total}} />
+					</div>
+					<div style="clear:both"></div>
+				</div>
+				
+				{% if price_check %}
+				<div id="items-to-pricecheck" class="clearfix">
+					<div class="center">
+						<h3 class="loud prepend-top"><b>2. Price check needed</b>
+						<span class="sub-title more-quiet">We'll send you an email 
+						once we've updated pricing items below.</span>
+						</h3>
+					</div>
+					
+					<div class="ingrtable clearfix append-bottom">
+						{% for pc in price_check %}
+						<div class="row span-16 last {% cycle '' 'even' %} dotted">
+							<div class="span-16 item">{{pc}}</div>
+						</div>
+						{% endfor %}
+						</ul>
+					</div>
+						
+				</div>
+				
+				{% include "commerce/ajax/popup_login_snippet.html" %}
+				
+				<div id="confirm-order" class="clearfix prepend-top">
+					<div class="center">
+						<button {% if disabled %} disabled=disabled {% endif %}
+						class="pricecheck-order {% if disabled %} disabled {% endif %}">Run Price Check</button>
+					</div>
+				</div>
+				
+				{% else %}
+				
+				<div id="delivery-window" class="clearfix">
+					<div class="center">
+						<h3 class="loud prepend-top"><b>2. Select delivery window</b>
+						<span class="sub-title more-quiet">Click here to see where we 
+						currently deliver.</span>
+						</h3>
+					</div>
+					
+					<!---
+					ENTER DELIVERY DROPDOWN & ADDRESS INFO
+					-->
+						
+				</div>
+				
+				{% include "commerce/ajax/popup_login_snippet.html" %}
+				
+				<div id="confirm-order" class="clearfix">
+					<div class="center">
+						<button {% if disabled %} disabled=disabled {% endif %} 
+						class="confirm {% if disabled %} disabled {% endif %}">Confirm Order</button>
+					</div>
+				</div>
+				
+				{% endif %}
+				
+				
+			</div>
+		</div>
+	</body>
+</html>

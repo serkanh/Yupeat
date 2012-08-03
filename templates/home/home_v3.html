@@ -1,0 +1,78 @@
+<!--
+*
+* DEPRECATED
+*
+-->
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block ab %}
+{% include 'home/v2_optimizejs.html' %}
+{% endblock %}
+
+{% block content %}
+	<div class="append-1 span-22 prepend-1">
+		<a href="http://www.yupeat.com/"><div class="logo"></div></a>
+		<div class="banner v3">
+		<h1>Make Every Night a <br/> 
+		Date Night</h1>
+		
+		<h3>Meal ingredients; <br/>
+		pre-purchased, bagged <br/>
+		and ready to go</h3>
+		
+		</div>
+		<div class="cta strongbgnd rounded-corners clearfix">
+			<span>
+				Want to know when we make it to your city?
+			</span>
+			<form method="post" action="">{% csrf_token %}
+			<div>email:<br/>{{form.email}}
+			{% if form.email.errors %}{{ form.email.errors}}<br/>{% endif %}
+			</div>
+			<div>postal code:<br/>{{form.postal_code}}
+			{% if form.postal_code.errors %}{{ form.postal_code.errors}}<br/>{% endif %}
+			</div>
+			<div> &nbsp; <br/></input><button class="rounded-corners" id="signup">Sign up today!</button></div>
+			</form>
+		</div>
+		<div class="cta-sub span-22 clearfix"><b>Our Current Locations:</b> 
+			<a href="https://yupeat.appspot.com/signup/sanfrancisco">San Francisco</a>
+		</div>
+		
+		<div class="howitworks clearfix">
+			<h2>Here's how it works:</h2>
+			<ul>
+				<li class="cleanbox rounded-corners left">
+					<h2>One delicious meal per day in your inbox</h2>
+					<p>Sign up to get an email everyday with a recipe, details
+					on how to prepare it, and the list of items we buy for you.</p>
+					<div class="gmail"></div>
+				</li>
+				<li class="cleanbox rounded-corners left">
+					<h2>Place an order anytime before end of workday</h2>
+					<p>Select a pick-up location then purchase your order
+					online.</p>
+					<div class="iphone"></div>
+				</li>
+				<li class="cleanbox rounded-corners left end">
+					<h2>Pick up ingredients from nearby grocer</h2>
+					<p>We buy the ingredients and bag them just in time
+					for you to pick it up. No lines, no fuss!</p>
+					<div class="groceries"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="cta strongbgnd rounded-corners append-bottom clearfix">
+			<p>Some of our sources of meal inspiration:</p>
+			<img width="762" height="57" src="{% media_url 'images/inspiration.png' %}"/>
+		</div>
+	</div>
+{% endblock %}
+
+{% block load_js %}
+{% include_media 'main.js' %}
+<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA0cpX06xTSo-ogY4hTVCRiRRPSt3D7GhkBrgiUqA3INr_iSsKmhQlOcRTLnJ7wp9bqfOYS0bQQvL9Tw"></script>
+<script type="text/javascript">lib.main.init();</script>
+{% endblock %}

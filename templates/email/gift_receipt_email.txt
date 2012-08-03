@@ -1,0 +1,19 @@
+Gift Subscription Receipt
+
+Hi {{givername}},
+
+Your gift's been sent! Here's a copy of your gift receipt.	
+
+Order Details:
+
+Order Number: {{order_number}} 
+Order Date: {{order_date}}
+
+4-Month Gift Subscription
+49.99
+  
+
+If you have questions or feedback feel free to contact us at support@yupeat.com
+Thanks!
+
+Ray + The Yupeat Team

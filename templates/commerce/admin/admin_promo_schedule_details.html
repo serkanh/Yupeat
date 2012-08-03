@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Admin (All Recipes){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block admin_navbar %}
+	{% include 'profile/admin/admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container"> 
+	      <div class="append-1 span-22 prepend-1 prepend-top append-bottom">
+              <div class="logo"></div>
+          </div>
+          <div class="append-1 span-22 prepend-1 prepend-top">
+              <h2>{{store.store_name}}, {{store.city}}</h2>
+			  <h3>{{recipe.name}} - {{date}}</h3>
+			  <form action="." method="post">{% csrf_token %}
+			  <div class="promo_schedule_update span-16 last clearfix append-bottom">
+			  <input type="hidden" name="promo_id" value="{{promo_id}}" />
+			  {% for i, p in items.items %}
+				<div class="row span-16 last {% cycle '' 'even' %} dotted">
+					<div class="span-12 item">{{i}}</div>
+					<div class="span-4 price last"><input name="{{i}}" type='text' value='{{p}}' size="6" /></div>
+				</div>
+			  {% endfor %}
+			  </div>
+			  <div class="append-1 span-22">
+			  	<button type="submit" class="positive"><img src="{% media_url 'css/blueprint/plugins/buttons/icons/tick.png' %}">Save</button>
+			  	<button type="submit" class="negative"><img src="{% media_url 'css/blueprint/plugins/buttons/icons/cross.png' %}">Cancel</button>
+			  </div>
+			  </form>
+          </div>
+</div>
+
+<script type="text/javascript">lib.schedule.init();</script>
+{% endblock %}

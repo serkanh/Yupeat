@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<h1>Pickup day and time {{pickup_day}} / {{pickup_time}} </h1>
+<h1>{{user_profile.name}}</h1>
+
+<h2>{% for r in recipes %}<h3><b>{{r.name}}</b><h3/>{% endfor %}</h2>
+
+<br/>
+<p>{{store.store_name}}<br/>
+	{{store.street1}}<br/>
+	{{store.city}}, {{store.state}} {{store.postal_code}}<br/>
+	{{store.country}}<br/>
+</p>
+<h2>Items Ordered</h2>
+<ul>
+	{% for i in items %}
+	<li>{{i}}</li>
+	{% endfor %}
+</ul>   
+
+<h2>Amount Charged</h2>
+<p>{{charged}}</p>
+<h2>Pickup Location and Time</h2>
+<p>Pickup time: {{pickup_time}}</p>
+<p>Contact email: {{user_profile.user.username}}</p>

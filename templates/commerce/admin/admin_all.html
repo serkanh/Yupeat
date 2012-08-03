@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Admin (All Recipes){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block admin_navbar %}
+	{% include 'profile/admin/admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container"> 
+	 	  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+          	<div class="logo"></div>
+          </div>
+		  
+          <div class="append-1 span-22 prepend-1 prepend-top">
+              <a href="/order/admin/new/">+ Add New Meal</a>
+			  <table>
+              	{% for r in recipes %}
+				<tr>
+					<td>{{r.name}} <br/>
+					<a href="/order/admin/edit/{{r.id}}">Edit</a>  |
+					<a href="/order/admin/delete/{{r.id}}"> Delete</a></td>
+					<td>{{r.ingrfull|truncatewords:10}}</td>
+					<td>{{r.dirfull|truncatewords:10}}</td>
+				</tr>
+				{% endfor %}
+              </table>
+          </div>
+</div>
+{% endblock %}

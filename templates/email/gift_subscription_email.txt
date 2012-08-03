@@ -1,0 +1,14 @@
+Yupeat Gift Subscription
+
+You've recieved a 4 month subscription to Yupeat!
+
+To: {{recievername}}
+
+From: {{givername}} 
+
+Message: 
+{{message}}
+
+Click <a href="{{url}}">here</a> to activate.
+
+Link not displaying properly? Copy and paste the following url into your browser address bar. {{url}} 

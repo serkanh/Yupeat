@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}{{active_recipe}} {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+<div id="js-messages-login-top" class="error" style="display:none"></div>
+	{% if messages %}
+	<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+      <div class="append-1 span-22 prepend-1 append-bottom">
+	      <div class="span-22">
+			<div class="span-16">
+			<a href="http://www.yupeat.com/"><div class="logo landing"></div></a>
+			</div>
+			{% include 'profile/login_navbar.html' %}
+          </div>
+		  
+		  <div class="append-1 span-22 prepend-1">
+		  <div class="prepend-7 span-13 more-nav">
+				<nav>
+				<ul class="prepend-2 span-11">
+					<li class="what_nav active"><a href="/what" title="Learn more about Yupeat">What is Yupeat?</a></li>
+					<li class="about_nav"><a href="/about" title="Learn more about our team">About Us</a></li>
+					<li class="start_nav"><a href="/signup/sanfrancisco">Start Service Today</a></li>
+				</ul>
+				</nav>
+			</div>
+		  </div>
+		  <hr/>
+		  
+		  <div class="span-22 prepend-top append-bottom last">
+		  	<div class="lead-title append-bottom">
+		  	  	<h2>What is Yupeat?</h2> pre-purchased / bagged meal ingredients ready for pickup
+			</div>
+			  
+			  <div class="sub-lead-title">
+			  	<div class="prepend-top">
+			  		<h3>Enjoy cooking? Looking to learn? Cook without grocery shopping...</h3>
+			  	</div>
+			</div>
+				<div class="what-content prepend-top append-bottom">
+				
+				<div class="what-content-section">
+				<h4>We buy meal ingredients any night of the work week so you don't have to.</h4>
+				<p>
+				<strong>Because you're busy, we'll send you an email everyday with a dinner recipe. We'll then buy the ingredients for that night's meal if you order.</strong> 
+				Our users are busy young professionals. They're tired of eating out, like saving money, and are interested in cooking new recipes.  
+				</p>
+				<div class="quote append-bottom">"Love the concept and the meal was great. I am using this as inspiration to cook ... 
+				I've taken some cooking classes but never get around to cooking myself." - Ryan K.</div>
+				</div>
+				
+				<div class="what-content-section">
+				<h4>Why do our users choose Yupeat?</h4>
+				<p>Yupeat grew out of one basic idea: cooking good food at home can be easier than it is today.
+				 By making recipe ingredients immediately available to you for pick-up, your decision to cook at home becomes an easy one.</p>
+				</div>
+				
+				<div class="what-content-section">
+				<h4>Spend time cooking instead of planning meals and searching for ingredients</h4>
+				<p>Planning meals and buying ingredients (at a store or online) is a drain on time.
+				 Why not jump straight to the fun of cooking and the socializing that goes with it. If you want to avoid overbuying and want to ensure that you always have the ingredients you need, let us buy your ingredients for you fresh everyday.</p>  
+				</div>
+				</div>
+				
+				<div class="start_signup_wrap">
+					<div class="start_box span-14">
+						<div class="span-8">
+						<h4>Signup and start cooking today</h4>
+						<p>No risk. No obligations. No credit card required.</p>
+						</div>
+						<div class="span-5">
+							<a class="signup_link" href="/signup/sanfrancisco">
+								<button type="submit" id="cta_signup" class="greenbutton">Sign-up for free now</button>
+							</a>
+						</div>
+					</div>
+					<div class="contact_box span-4">
+						<h4>Have questions?</h4>
+						<p><a href="mailto:yupeat@yupeat.com">Contact us</a> to chat</p>
+					</div>
+				</div>
+				
+				<div class="sub-lead-title">
+			  		<div class="prepend-top">
+			  			<h3>How Yupeat service works</h3>
+			  		</div>
+				</div>
+				<div class="what-content prepend-top append-bottom">
+				<div class="span-22">
+					<ul class="what-content-steps">
+						<li class="y_email">
+							<strong>One emailed recipe per day:</strong>
+							Receive one email per day between 11 and 2p with a hearty dish ranging in price per 
+							serving from $4 to $10. Total cooktime for any given meal will always be less than 60 minutes. 
+							Emails include a summary of the ingredients we'll buy for that day and serving size.
+							An example dish includes 'Baked Teriyaki Chicken with Bacon and Kimchi Fried Rice' and more. 
+						</li>
+						<li class="y_select">
+							<strong>Deselect items you already have:</strong>
+							Items you likely already have are deselected by default on the Yupeat order page. A couple of
+							orders with Yupeat and you'll soon find yourself deselecting items. As a result, you'll see 
+							the cost per serving for your daily meals go down. 
+						</li>
+						<li class="y_bag">
+							<strong>Pick-up ingredients from a nearby grocer:</strong> Our buyers purchase your ingredients
+							just in time for you to pick up your ingredients after work. Service is currently being offered
+							in 3 San Francisco locations including: Safeway, 298 King St, Safeway (Market St.), 2020 Market St, 
+							and Whole Foods, 1765 California St. 
+						</li>
+					</ul>
+				</div>
+				</div>
+				<div class="start_signup_wrap">
+					<div class="start_box span-14">
+						<div class="span-8">
+						<h4>Signup and start cooking today</h4>
+						<p>No risk. No obligations. No credit card required.</p>
+						</div>
+						<div class="span-5">
+							<a class="signup_link" href="/signup/sanfrancisco">
+								<button type="submit" id="cta_signup" class="greenbutton">Sign-up for free now</button>
+							</a>
+						</div>
+					</div>
+					<div class="contact_box span-4">
+						<h4>Have questions?</h4>
+						<p><a href="mailto:yupeat@yupeat.com">Contact us</a> to chat</p>
+					</div>
+				</div>
+				<div class="sub-lead-title">
+			  		<div class="prepend-top">
+			  			<h3>Frequently Asked Questions</h3>
+			  		</div>
+				</div>
+				<div class="what-content prepend-top append-bottom">
+				<div class="span-22">
+					
+					
+				<div class="span-10 append-1">
+					<div class="what-content-section-qa">
+					<h4>Where is Yupeat service being offered?</h4>
+					<p>
+						<u>San Francisco</u><br/><br/>
+						Safeway, 298 King St, San Francisco<br/>
+						Safeway (Market St.), 2020 Market St, San Francisco<br/>
+						Whole Foods, 1765 California St, San Francisco <br/><br/>
+					
+						We fully intend to continue to grow to other neighborhoods in San Francisco 
+						based on what we hear from our users.
+					</p>
+					</div><div class="what-content-section-qa">
+					<h4>What days/times do you offer Yupeat service?</h4>
+					<p>
+						Yupeat users can place an order on any day of the work week (<strong>M-F, excluding standard holidays</strong>)
+						and have our buyers purchase ingredients for that day's meal which you receive via email
+						between <strong>11-2p</strong>.</p><p>The ingredients are available for pickup anytime between <strong>5-7p</strong> and 
+						users can place an order anytime up until <strong>4:30p</strong>.
+					</p>
+					</div><div class="what-content-section-qa">
+					<h4>How much does the service cost?</h4>
+					<p>
+						Users have the option to pay a per-order charge of <strong>3.99</strong> or can sign-up for a monthly subscription for
+						<strong>14.99</strong>. In particular, monthly subscribers can order every day of the month for one flat service charge of 14.99.
+					</p>
+					</div><div class="what-content-section-qa">
+					<h4>Do you offer a vegetarian option? How about substitutions? Can I modify the serving size?</h4>
+					<p>
+						No (to all of the above). We're trying hard to balance simplicity with user requested features. 
+						As we improve our core service we'll look to expand to include all of the above.
+					</p>
+					</div><div class="what-content-section-qa">
+					<h4>When are the ingredients purchased?</h4>
+					<p>
+						Yupeat buyers purchase the ingredients the day of your order between <strong>
+						4:30 and your pick-up time</strong>, ensuring that the items you get are always fresh.
+					</p>
+					</div><div class="what-content-section-qa">
+					<h4>What are some example meals?</h4>
+					<p>
+						Below are a few examples:
+						<ul>
+							<li>Baked Teriyaki Chicken with Bacon and Kimchi Fried Rice</li>
+							<li>Bourbon Chicken on Rice with Sauteed Cauliflower</li>
+						</ul>
+					</p>
+					</div><div class="what-content-section-qa">
+					<h4>Where do you find your recipes?</h4>
+					<p>
+						Recently, we've been working with the best food bloggers on the web 
+						who suggest their favorite meals. An effort we're calling Yupeat 40/40.
+						See a list of all of the food bloggers responsible for 
+						recommending meals <a href="http://blog.yupeat.com/tagged/4040interviews">here</a>.
+					</p>
+					</div>
+				</div>
+				<div class="span-10">
+					<div class="what-content-screenshot rounded-corners"></div>
+					<div class="what-content-steak rounded-corners"></div>
+					<div class="what-content-shrimp rounded-corners"></div>
+					<div class="blogger_attribute">
+						Awesome photos courtesy of 
+						<a href="www.candcmarriagefactory.com">Christina Fay</a> 
+						and <a href="theboogieblog.net">Boogie Photography</a>. Check out their blogs.
+					</div>
+				</div>
+				</div>
+	  		</div>
+			<div class="start_signup_wrap">
+					<div class="start_box span-14">
+						<div class="span-8">
+						<h4>Signup and start cooking today</h4>
+						<p>No risk. No obligations. No credit card required.</p>
+						</div>
+						<div class="span-5">
+							<a class="signup_link" href="/signup/sanfrancisco">
+								<button type="submit" id="cta_signup" class="greenbutton">Sign-up for free now</button>
+							</a>
+						</div>
+					</div>
+					<div class="contact_box span-4">
+						<h4>Have questions?</h4>
+						<p><a href="mailto:yupeat@yupeat.com">Contact us</a> to chat</p>
+					</div>
+				</div>
+		</div>
+		</div>
+	  <div class="append-1 span-22 prepend-1 prepend-top append-bottom"></div>
+
+{% include_media 'main.js' %}	  
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

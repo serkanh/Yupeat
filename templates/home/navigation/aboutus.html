@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% load media %}
+{% load filetransfers %}
+
+{% block messaging %}
+<div id="js-messages-login-top" class="error" style="display:none"></div>
+	{% if messages %}
+	<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+	</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+ <div class="append-1 span-22 prepend-1">
+	<div class="span-22 last">
+		<div class="span-16">
+		<a href="http://www.yupeat.com/"><div class="logo landing"></div></a>
+		</div>
+		{% include 'profile/login_navbar.html' %}
+		
+    </div>
+	
+	<div class="append-1 span-22 prepend-1">
+	<div class="prepend-7 span-13 more-nav">
+			<nav>
+			<ul class="prepend-2 span-11">
+				<li class="what_nav"><a href="/what" title="Learn more about Yupeat">What is Yupeat?</a></li>
+				<li class="about_nav active"><a href="/about" title="Learn more about our team">About Us</a></li>
+				<li class="start_nav"><a href="/signup/sanfrancisco">Start Service Today</a></li>
+			</ul>
+			</nav>
+		</div>
+	</div>
+	<hr/>
+	
+	<div class="span-22 last prepend-top append-bottom last">
+		<div class="lead-title append-bottom">
+		  	  <h2>About Us</h2> the happy makers
+		</div>
+		
+		<div class="sub-lead-title">
+			<div class="prepend-top">
+			  	<h3>Our Story</h3>
+			</div>
+		</div>
+		<div class="aboutus-section">
+		<p> Founded in 2011, the founders of Yupeat set out to simplify the process of cooking good food at home. 
+		In particular, Yupeat seeks to answer the question, "What's for dinner?". 
+		By offering one fresh and delicious meal idea per day in your inbox and buying your ingredients, we make it easier 
+		for you to eat well without the hassle. 
+		</p>
+		<p>
+		<strong>Place an order and pick up the bagged meal ingredients after work. It's that simple.</strong> 
+		</p>
+		</div>
+		
+		<div class="sub-lead-title">
+			<div class="prepend-top">
+			  	<h3>Our Team / Your Buyers	</h3>
+			</div>
+		</div>
+		<div class="aboutus-section span-22">
+			
+			<div class="aboutus-row">
+			<div class="prepend-1 span-6">
+				<div class="uprofile">
+					<div class="profile-ray rounded-corners"></div>
+					<div>
+						<h4>Ray <strong>Ventura</strong></h4>
+						<p>Chief Instigator</p>
+						<p>After challenging grocery store managers to make the lives of their customers simpler 
+						with little success, Ray set out to find others who would. These days he's usually interviewing
+						food bloggers and buying groceries for Yupeat members. A Computer Engineering grad from Georgia Tech and JD/MBA holder
+						from Univ of MN, he's finally putting his skills to use to bag groceries.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="prepend-1 span-6 append-1">
+				<div class="uprofile">
+					<div class="profile-jess rounded-corners"></div>
+					<div>
+						<h4>Jess <strong>Ziman</strong></h4>
+						<p>Culinary Goddess</p>
+						<p>Credit to Jess for being the only member of the Yupeat team with real kitchen expertise, 
+						she ensures that every user achieves gastronomic nirvana by carefully reviewing each meal 
+						and shopping only the freshest ingredients for users. When she's not making users happy, 
+						the UK born all star is busy wowing her peers at the Art Institute's Culinary School.</p> 
+					</div>
+				</div>
+			</div>
+			<div class="span-6">
+				<div class="uprofile">
+					<div class="profile-daudi rounded-corners"></div>
+					<div>
+						<h4>Daudi <strong>Malunda</strong></h4>
+							<p>iPhone Guru</p>
+							<p>On any given day you'll find Daudi pimping out the Yupeat iPhone app, 
+							buying groceries for Yupeat members, or listening to reggae in the Mission 
+							(not necessarily in that order). Daudi earned his bachelor's and master's
+							degree in electrical engineering and computer science from MIT in 2006, 
+							and gained experience working for two well known Fortune 500 companies 
+							before joining Yupeat.
+							</p>
+					</div>
+				</div>
+			</div>
+			</div>
+			
+			<!--<div class="aboutus-row">
+				<div class="prepend-1 span-6">
+					<div class="uprofile">
+						<div class="profile-mike rounded-corners"></div>
+						<div>
+							<h4>Mike <strong>Lesnick</strong></h4>
+							<p>Director of Unsolicted Ops Advice</p>
+							<p>Mike has played a role of debatable importance in the development of Yupeat operations,
+							lending his expertise to a broad spectrum of logistical questions for which his talents 
+							have in fact not been required.  A Ph.D. candidate in applied mathematics at Stanford university,
+							Mike's esoteric thesis work in applied algebraic topology has positioned him well to offer 
+							impractical advice to Yupeat's team from the top of the ivory tower on matters ranging 
+							from web design to growth strategy.  Mike's contributions have been essential to affirming 
+							the founders' core belief that modern algebra has absolutely no place in the web-based grocery 
+							services revolution.
+							 </p>  
+						</div>
+					</div>
+				</div>
+				
+				<div class="prepend-1 span-6 append-1">
+					<div class="uprofile">
+						<div class="profile-daudi rounded-corners"></div>
+						<div>
+							<h4>Daudi <strong>Malunda</strong></h4>
+							<p>iPhone Guru</p>
+							<p>On any given day you'll find Daudi pimping out the Yupeat iPhone app, 
+							buying groceries for Yupeat members, or listening to reggae in the Mission 
+							(not necessarily in that order). Not long after graduating MIT, he started planning 
+							for early retirement. His dream retirement job is as a soccer journalist who teaches 
+							a do-it-yourself engineering class to kids on the weekends.</p> 
+						</div>
+					</div>
+				</div>
+			</div>-->
+			
+		</div>
+		<div class="start_signup_wrap">
+		<div class="start_box span-14">
+			<div class="span-8">
+			<h4>Signup and start cooking today</h4>
+			<p>No risk. No obligations. No credit card required.</p>
+			</div>
+			<div class="span-5">
+				<a class="signup_link" href="/signup/sanfrancisco">
+					<button type="submit" id="cta_signup" class="greenbutton">Sign-up for free now</button>
+				</a>
+			</div>
+		</div>
+		<div class="contact_box span-4">
+			<h4>Have questions?</h4>
+			<p><a href="mailto:yupeat@yupeat.com">Contact us</a> to chat</p>
+		</div>
+		</div>
+		<div class="aboutus-section span-22">
+		<div class="sub-lead-title">
+			<div class="prepend-top">
+			  	<h3>What We Believe</h3>
+			</div>
+		</div>
+		<div class="aboutus-section">
+		<ol>
+		 	<li>Whatever we do, we do for the benefit of our users.</li>
+			<li>Cooking at home can be easier than it is today.</li>
+			<li>Less is more.</li>
+		 </ol>
+		</div>
+		</div>
+		
+		<div class="aboutus-section span-22">
+		<div class="sub-lead-title">
+			<div class="prepend-top">
+			  	<h3>Contact Us</h3>
+			</div>
+		</div>
+		<div>
+		<p>
+		We love feedback. Feel free to get in touch with us at yupeat@yupeat.com	
+		</p>
+		</div>
+		</div>
+	</div>
+	
+ </div>
+
+{% include_media 'main.js' %}
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+application: yupeat-hrd
+version: 3
+runtime: python27
+api_version: 1
+threadsafe: true
+
+builtins:
+- remote_api: on
+
+libraries:
+- name: PIL
+  version: latest
+- name: django
+  version: latest
+
+
+inbound_services:
+- warmup
+
+handlers:
+
+- url: /_ah/queue/deferred
+  script: djangoappengine.deferred.handler.application
+  login: admin
+
+- url: /_ah/stats/.*
+  script: djangoappengine.appstats.application
+
+- url: /media/admin
+  static_dir: django/contrib/admin/media
+  expiration: '0'
+
+- url: /media
+  static_dir: _generated_media/
+  expiration: '365d'
+
+- url: /order/.*
+  secure: always
+  script: djangoappengine.main.application
+
+- url: /profile/.*
+  secure: always
+  script: djangoappengine.main.application
+
+- url: /.*
+  script: djangoappengine.main.application
+ 
+ 
+ 

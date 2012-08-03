@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Admin (All Recipes){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block content %}
+<div class="container"> 
+	      <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+              <div class="logo"></div>
+          </div>
+          <div class="append-1 span-22 prepend-1 prepend-top">
+              <a href="/order/admin/store/">+ Add New Store</a>
+			  <table>
+              	{% for s in store %}
+				<tr>
+					<td>{{s.store_name}}, {{s.street1}}, {% if s.street2 %}{{s.street2}},{% endif %} {{s.city}} {{s.state}}</td>
+					<td><a href="/order/admin/store/edit/{{s.id}}">Edit</a>  
+					| <a href="/order/admin/store/delete/{{s.id}}"> Delete</a></td>
+				</tr>
+				{% endfor %}
+              </table>
+          </div>
+</div>
+{% endblock %}

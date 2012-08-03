@@ -1,0 +1,49 @@
+<h3 class="loud prepend-top"><b>1. Ingredients included with this purchase </b>
+	<span class="sub-title more-quiet">Uncheck the ingredients you already have 
+	(common items are unchecked by default)</span>
+	</h3>
+	
+	<input id="date_now" name="now" type="hidden" value={{now}}>
+	{% for ex in excluded %}
+	<input class="excluded_items" name="exclude" type="hidden" value={{ex}}>
+	{% endfor %}
+	
+	<div class="ingrtable rounded-corners clearfix prepend-top">
+	{% for i, p in items.items %}
+	<div class="row span-16 last {% cycle '' 'even' %} dotted">
+		<div class="span-12 item"><input class="item_checkbox" checked price="{{p}}" type="checkbox" name="{{i|slugify}}" value="{{p}}" />{{i}}</div>
+		<div class="span-4 last price" name={{i|slugify}}>{{p}}</div>
+	</div>
+	{% endfor %}
+	</div>
+	<div class="row span-16 last service_fee prepend-top">
+		<div class="span-12 indent">Service Fee</div>
+		<div id="servicefee" class="span-4 last {% if subscribed %}strike{% endif %}">3.99</div>
+		
+		{% if not_subscribed %}
+		<input id="not_subscribed" name="subscribed_value" type='hidden' value='True' />
+		{% endif %}
+		
+		<input id="servicefee" name="confirm_servicefee" type='hidden' value=3.99 />
+	</div>
+	
+	<div id='coupon_total_group'>
+		<div id="coupon_box" class="row span-16 last coupon_code" style='display:none;'>
+			<div class="span-3 coupon_lead indent">Coupon</div>
+			<div class="span-11">
+				<div id='coupon_error' class='red xsmall' style='display:none'></div>
+				<input id="coupon_entry" class='coupon_entry' name='coupon' type='text' />
+				<input id="coupon_submit" type='submit' value='Apply Coupon' />
+			</div>
+			<div class="span-2 coupon_lead last"><a id="cancel_coupon" class='cancel_coupon'>cancel</a></div>
+		</div>
+		
+		<div class="row span-16 last total append-bottom">
+			<div class="span-12 indent">Total</div>
+			<div id="total" class="span-2">{{total}}</div><div class='span-2 coupon last'>
+				<a id='coupon'>Coupon?</a>
+			</div>
+			<input id="confirm_total" name="confirm_total" type='hidden' value={{total}} />
+			<input id="confirm_coupon" name="confirm_coupon" type='hidden' value={{coupon}} />
+		</div>
+</div>

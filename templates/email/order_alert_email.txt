@@ -1,0 +1,22 @@
+{% load i18n %}
+
+Pickup day and time {{pickup_day}} / {{pickup_time}}
+{{user_profile.name}}
+
+{% for r in recipes %}{{r.name}}{% endfor %}
+
+{{store.store_name}}
+{{store.street1}}
+{{store.city}}, {{store.state}} {{store.postal_code}}
+{{store.country}}
+
+Items Ordered
+
+{% for i in items %}
+{{i}}
+{% endfor %}
+   
+Amount Charged
+{{charged}}
+Pickup Location and Time
+Pickup time: {{pickup_time}}

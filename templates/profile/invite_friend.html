@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Invite a Friend | Yupeat{% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+	{% if messages %}
+			<div class="messages">
+		    {% for message in messages %}
+		    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+		    {% endfor %}
+			</div>
+		  {% endif %}
+{% endblock %}
+	
+	{% block content %}
+
+
+  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+  	<div class="logo span-16"></div>
+	{% include 'profile/login_navbar.html' %}
+    <hr/>
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+	  
+	  <div class="monthfree-box clearfix rounded-corners append-bottom">
+	  	<div><h3>Make some new friends and share the gift of a <span>1 Month <u>Free</u> Subscription</span></h3></div>
+		<div class="sub">(send an invite using the input box below to share a gift)</div>
+	  </div>
+	  
+	  <form action="." method="POST">{% csrf_token %}
+	  
+	  <div class="span-9 invite_friends clearfix">
+	  	{{form.as_p}}
+	  </div>
+	  <div class="span-6 send_invite_btn">
+	  <button class="truebutton extend">Send Invite</button>
+	  </div>
+	  <div class="span-2">&nbsp</div>
+	  <div class="span-4">
+	  <div class="invite-block rounded-corners">
+	  	<p class="label"># of friends</p> 
+		<div class="stat">{{ invites|length }}</div>
+	  </div>
+	  </div>
+	  
+	  </form>
+	
+      {% if invites %}
+	  <table>
+      	<tr>
+			<td>Friends Invited</td>
+		</tr>
+		{% for i in invites %}
+		<tr>
+			<td>{{i.invitation.email}}</td>
+		</tr>
+		{% endfor %}
+      </table>
+	  {% endif %}
+  </div>
+
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

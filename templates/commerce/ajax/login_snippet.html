@@ -1,0 +1,9 @@
+<div>
+	<a href="logout" class="logout_btn rounded-corners">
+		<span>{{user.username}}</span>
+	</a>
+	<fieldset id="signout_menu">
+		<p class="logout"> <a href="{% url logout %}?city={{city}}" id="logout">Logout</a> </p>
+		<p class="account"> <a href="{% url profile %}" id="logout">Account</a> </p>
+	</fieldset>
+</div>

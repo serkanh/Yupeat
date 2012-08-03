@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load commerce_extras %}
+
+{% block title %}Admin (Profiles){% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block admin_navbar %}
+	{% include 'profile/admin/admin_navbar.html' %}
+{% endblock %}
+
+{% block content %}
+ 
+  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+  	<div class="logo"></div>
+  <hr/>
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+	  
+	  <form action="." method="POST">{% csrf_token %}
+	  Enter as a decimal (e.g., 0.50) <br/>
+	  <input class='discount_amount' type="text" name='discount_percent' class="positive">
+	  <input type="submit" name='new_code' class="positive" value='Generate New Code'>
+	  </form>
+	  
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+      <table class='codes'>
+      	<tr>
+			<td>Coupon Code</td>
+			<td>Discount Amount</td>
+			<td>Date Created</td>
+			<td>Used</td>
+		</tr>
+		{% for coupon in all_coupons %}
+		<tr>
+			<td>{{coupon.code}}</td>
+			<td>{{coupon.discount_percent|percentage}}</td>
+			<td>{{coupon.created_on}}</td>
+			<td class='{% if coupon.coupon_used %}green{% else %}red{% endif %}'>{{coupon.coupon_used}} 
+				{% if used %}{{coupon.timestamp}}{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+      </table>
+  </div>
+
+{% endblock %}

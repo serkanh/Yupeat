@@ -1,0 +1,140 @@
+<!--
+--------------- NOT IN USE ---------------------- 
+-->
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Invite a Friend | Yupeat{% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+	{% if messages %}
+			<div class="messages">
+		    {% for message in messages %}
+		    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+		    {% endfor %}
+			</div>
+		  {% endif %}
+{% endblock %}
+	
+	{% block content %}
+
+
+  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+  	<a href="https://yupeat.appspot.com/order/sanfrancisco/"><div class="logo span-16"></div></a>
+	{% include 'profile/login_navbar.html' %}
+    <hr/>
+  </div>
+  
+  <div class="prepend-4 span-16 prepend-top append-bottom">
+	  
+	  <!-- Box with menu and picture of meal -->
+		<div class="span-16 dinner-party-lead clearfix rounded-corners append-bottom">
+			<h3 class="loud"><b>Dinner with Friends</b></h3>
+		</div>
+		
+		<div class="order-summary-box span-16 clearfix rounded-corners append-bottom">
+			<div class="details span-10 ">
+				<div>
+					<span>On the menu:</span> 
+					<a href="">{{recipe.name}}</a>
+				</div>
+				<br/>
+				<div>
+					<span>Details:</span>
+					$<div id="total">0.00</div> for pick-up @ {{store.store_name}}<br/>
+					{{recipe.serv}} (servings), {{recipe.cooktime}} mins (cooktime) 
+				</div>
+				
+				<div id="dp_all">
+				{% for i, p in items.items %}
+					<div class="dp_items">	
+						<input class="dp_ingredient" type="hidden" price="{{p}}" value={{i|slugify}} />
+					</div>
+				{% endfor %}
+				</div>
+				
+				{% if not_subscribed %}
+					<input id="not_subscribed" name="subscribed_value" type='hidden' value='True' />
+				{% endif %}
+				
+				<input id="date_now" name="now" type="hidden" value={{now}}>
+				<input id="excluded" name="excluded" type="hidden" />
+			</div>
+			
+			<div class="span-5 last">
+				<img class="order-image double-border" src="{{image}}=s180"/>
+			</div>
+			
+		</div>
+		
+		<div class="span-16 dinner-party-invite clearfix rounded-corners append-bottom">
+			<h3 class="loud prepend-top"><b>1. Invite friends over </b>
+			<span class="sub-title more-quiet">
+				We only place your order if at least one of your invites responds by 4:30p with a 'Yes'.
+			</span>
+			</h3>
+		</div>
+		
+		
+		<div class="span-16 clearfix rounded-corners append-bottom">
+			<form action="." method="POST">{% csrf_token %}
+				<div class="prepend-1 span-9 invite_friends clearfix">
+			  	{{form.as_p}}
+			  	</div>
+			  	<div class="span-4 send_invite_btn">
+			  	<button class="truebutton extend">Add friend</button>
+			  	</div>
+			</form>
+		</div>	
+		
+		<form action="." method="POST">{% csrf_token %}
+		<div class="span-16 clearfix rounded-corners append-bottom">
+			<div class="prepend-1 span-13 invite_friends clearfix">
+			{% if friend_group %}
+			  <table id="guest_table">
+		      	{% for fg in friend_group %}
+				<tr>
+					<td><input class="add_guest" name="guest" value={{fg.0}} type=checkbox /></td>
+					<td>{{fg.0}}</td>
+				</tr>
+				{% endfor %}
+		      </table>
+			 {% endif %}
+			</div>
+		</div>
+		
+		
+		<hr/>
+		
+		
+		<div class="span-16 dinner-party-invite clearfix rounded-corners append-bottom">
+			<h3 class="loud prepend-top"><b>2. Craft message </b>
+			<span class="sub-title more-quiet">
+				Be sure to lay it on thick so your procrastinating friends don't bail on you.
+			</span>
+			</h3>
+			<div class="prepend-1 span-1 guest_message">
+				{{msg_form.message}}
+			</div>
+		</div>
+		
+		<hr/>
+		
+		<!-- Payment box (continget)-->  
+	  	{% include 'commerce/us_payment_party.html' %}
+	  </form>
+	  
+  </div>
+<script type="text/javascript">lib.dinnerparty.init();</script>
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

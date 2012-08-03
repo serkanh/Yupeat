@@ -1,0 +1,35 @@
+<h3 class="loud prepend-top"><b>2. Choose pick-up time for {{day}}</b></h3>
+				
+	<div id="address" class="span-8 append-bottom">
+		<p>{{store.store_name}}<br/>
+		{{store.street1}}<br/>
+		{{store.city}}, {{store.state}} {{store.postal_code}}<br/>
+		{{store.country}}
+		</p>
+		<div><p>
+			<a id="change_location" href="/order/{{city}}/?change_location=True">Change pickup location</a>
+			<select style="display:none" id="new_location" class="new_location" name="new_location"  city="{{city}}">
+			{% for s in store_all %}
+			<option value="{{s.id}}" {% if s.id == store.id %} selected {% endif %}>
+				{{s.store_name}}, {{s.street1}}
+			</option>
+			{% endfor %}
+			</select>
+			
+			</p>
+		</div>
+		<div class="pickup_time_box rounded-corners">
+			Select pick-up time:
+			<select id="pickup_time" class="pickup_time" name="pickup_time">
+  				{% for time in pickup_time %}
+				<option value="{{forloop.counter}}" {% if forloop.counter == 1 %} selected {% endif %}>
+					{{time}}
+				</option>
+				{% endfor %}
+			</select>
+			<input id="store_id" name="store_id" type='hidden' value={{store.id}} />
+		</div>
+	</div>
+	<div id="map" class="span-7 push-1 last append-bottom">
+		{{map.map}}
+</div>

@@ -1,0 +1,19 @@
+{% load i18n %}
+
+You've been invited to start using Yupeat!
+
+Create your Yupeat account below to begin receiving one email per day with a description of a meal and the ingredients that you can order using our service. 
+
+Click the link below to set your password and create your account.
+
+{{url}} 
+
+More on how it works:
+1. Once per day you receive an email with a dinner meal recipe.
+2. If you dig it, review the list of ingredients to deselect items you already have at home.
+3. Place an order any time before 4:30p and pick-up any time between 5-7p curbside, directly in front of the {{store.store_name}} at {{store.street1}}, in front of the CalTrain station.
+
+If you have questions or feedback feel free to contact us at support@yupeat.com.
+We'll see you soon. Thanks!
+
+Ray + The Yupeat Team

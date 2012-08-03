@@ -1,0 +1,14 @@
+{% load i18n %}
+Last minute dinner at my place tonight. Action starts at 8:00pm - be there.
+
+On the menu: 
+{{recipe.name}}
+
+Be sure to RSVP before 4:30pm if you're in. 
+
+{{rsvp_url}}
+
+See you tonight! 
+
+
+Learn more about yupeat.com  

@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<p>WooHoo! Welcome to Yupeat. Soon you'll begin receiving one email per day with a description 
+of a meal and the ingredients that you can order using our service.</p> 
+
+<p>Click the link below to set the password for your account.</p>
+<a href="{{url}}">{{url}}</a> 
+<br/>
+
+<p>More about how it works:</p>
+
+<p>1. Once per day you receive an email with a dinner meal recipe.</p>
+
+<p>2. If you dig it, review the list of ingredients to deselect items you already have at home.</p>
+
+<p>3. Place an order anytime before 4:30p and pick-up between 5-7p curbside, 
+at any one of the listed locations:
+<br/>
+<br/>{% for s in stores %}{{s.store_name}} {{s.street1}} <br/>{% endfor %}
+</p>
+
+<p>If you have questions or feedback feel free to contact us at support@yupeat.com.</p>
+<p>We'll see you soon. Thanks!</p>
+
+<p>Ray + The Yupeat Team</p>

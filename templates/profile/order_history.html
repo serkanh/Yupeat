@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load media %}
+
+{% block title %}Order History | Yupeat{% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block content %}
+ 
+  <div class="append-1 span-22 prepend-1 prepend-top prepend-bottom">
+  	<div class="logo span-16"></div>
+	{% include 'profile/login_navbar.html' %}
+    <hr/>
+  </div>
+  
+  <div class="append-1 span-22 prepend-1 prepend-top">
+	  
+	  <form action="." method="POST">{% csrf_token %}
+	  
+	  <div class="loud span-22 last">
+	  	<h2>Order History</h2>
+	  
+	  
+      {% if order %}
+	  <table>
+      	<tr>
+			<td><b>Meals</b></td>
+			<td><b>Order Date</b></td>
+			<td><b>Amount</b></td>
+		</tr>
+		{% for o in order %}
+		<tr>
+			<td><a href="/meals/details/{{o.meal.id}}">{{o.meal.name}}</a></td>
+			<td>{{o.date|date:"N d, Y"}}</td>
+			<td>{{o.amount}}</td>
+		</tr>
+		{% endfor %}
+      </table>
+	  {% else %}
+	  </div>
+	  
+	  <div class="loud span-22 last">You must be emaciated. You haven't placed an order with Yupeat yet.</div>
+	  
+	  {% endif %}
+	  </form>
+  </div>
+</div>
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load i18n %}
+
+
+Order for Today {{pickup_day}} Confirmed
+{% for r in recipes %}{{r.name}}{% endfor %}
+
+Amount Charged
+{{charged}}
+
+Pickup Location and Time
+Pickup time: {{pickup_time}}
+
+{{store.store_name}}
+{{store.street1}}<br/>
+{{store.city}}, {{store.state}} {{store.postal_code}}
+{{store.country}}
+
+
+Items Ordered
+{% for i in items %}
+{{i}}
+
+{% endfor %}
+   
+You can find your Yupeat buyer in a bright orange shirt standing in front of {{store.store_name}} on {{store.street1}}.
+
+If you have questions or feedback feel free to contact us at support@yupeat.com or give us a call at (916) 623 5526.
+We'll see you soon. Thanks!
+
+Ray + The Yupeat Team

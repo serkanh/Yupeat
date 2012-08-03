@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% load media %}
+{% load filetransfers %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+	{% if messages %}
+	<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+ <div class="append-1 span-22 prepend-1">
+	<div class="logo span-16"></div>
+	{% include 'profile/login_navbar.html' %}
+    <hr/>
+	<div id="subscribe_cancel" class="subscribe span-18 prepend-top">
+	  {% load media %}
+	   
+	   <div>
+	   <h3 class="loud prepend-top"><b>Change Card</b></h3>
+	   
+	   {% if not change_card %}
+		<div id="existing_card" class="span-16 row">
+			<div class="span-8 column">
+				Pay with Existing Card<br/>
+				<hr />
+				<p>{{customer.active_card.type}}</p>
+			
+			</div>
+			<div class="span-4 column">
+				Card Number <br/>
+				<hr />
+				<p>*** -{{customer.active_card.last4}}</p>
+			</div>
+		</div>
+		<div class="span-16">
+			<p><a id="change_card" href="/profile/subscribe/update-cancel/?change_card=True">Change card</a></p>
+		</div>
+	  {% else %}
+	  <form id="{% if customer %} subscribe_form_card_saved {% else %} subscribe_form {% endif %}" 
+			name="subscribe_form"  action="." method="post">{% csrf_token %}
+	   
+	   <input type="hidden" name="update_stripe_cc">
+	   <div id="billing_address" class="span-8 append-bottom">
+			{{payment.first_name}} {{payment.last_name}}<br>
+			{{payment.street1}}<br>
+			{{payment.street2}}<br>
+			{{payment.city}} {{payment.state}} {{payment.postal_code}}<br>
+			{{payment.country}}<br>
+		</div>
+		<div id="cc" class="span-7 push-1 append-bottom">
+			<img src="{% media_url 'images/icons/cc.png' %}"/>
+			<br/>
+			<!-- Stripe stuff -->
+			<script src="https://js.stripe.com/v0/"></script>
+			<script>
+				Stripe.configure({
+				    pubKey: "pk_FvIKMyVDxRLDb1eKeW2kV0Rul1TLr",
+					//Test
+					//pubKey:"pk_lYbXnRG55by29XymEqyCXySEJy41V",
+					//chargeAmount: 1500,
+				})
+			</script>
+		</div>
+		<div id="submit" class="span-16 append-bottom">
+			<button class="truebutton">Update Credit Card</button>
+		</div>
+		</form>
+	   {% endif %}
+	   </div>
+	   
+	   <hr/>
+	   
+	   <div>
+	   		<h3 class="loud prepend-top"><b>Cancel Subscription</b></h3>
+		   <form id="subscribe_cancel" name="subscribe_cancel"  action="." method="post">{% csrf_token %}
+		  		<input type="hidden" name="cancel_subscribe">
+				<div>
+				<span class="quiet small">
+		  			Sorry to see you go. Don't think we wont miss you! Have any feedback?
+				</span>
+				</div>
+				<textarea name="feedback_cancel"></textarea>
+				<div id="submit" class="span-16">
+					<button class="truebutton">Cancel Subscription</button>
+				 </div>
+	  		</form>
+		</div>
+	</div>
+ </div>
+
+<script type="text/javascript">lib.subscribe.init();</script>
+<script type="text/javascript">lib.auth.init();</script>
+
+{% endblock %}

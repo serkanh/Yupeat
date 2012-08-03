@@ -1,0 +1,44 @@
+{% load media %}
+<div id="payment" class="clearfix prepend-top">
+	  	<h3 class="loud prepend-top"><b>3. Payment options</b>
+		</h3>
+		
+		{% if customer %}
+				<div class="span-16 row">
+					<div class="span-8 column">
+						Pay with Existing Card<br/>
+						<hr />
+						<p>{{customer.active_card.type}}</p>
+					</div>
+					<div class="span-4 column">
+						Card Number <br/>
+						<hr />
+						<p>*** -{{customer.active_card.last4}}</p>
+					</div>
+				</div>
+				<div class="span-16">
+					<p><a id="change_card" href="/order/{{city}}/?change_card=True">Change card</a></p>
+				</div>
+				
+		{% else %}
+		
+		<div id="billing_address" class="span-8 append-bottom">
+			{{payment.first_name}} {{payment.last_name}}<br>
+			{{payment.street1}}<br>
+			{{payment.street2}}<br>
+			{{payment.city}} {{payment.state}} {{payment.postal_code}}<br>
+			{{payment.country}}<br>
+		</div>
+		<div id="cc" class="span-7 push-1 append-bottom">
+			<img src="{% media_url 'images/icons/cc.png' %}"/>
+			<br/>
+			
+		</div>
+		{% endif %}
+	</div>
+	
+	<div id="submit" class="span-16">
+		<button class="confirm">Confirm Order</button>
+	</div>
+  </div>
+</form>

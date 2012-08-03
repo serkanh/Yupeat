@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load media %}
+{% load filetransfers %}
+
+{% block title %}Confirmation {% endblock %}
+
+{% block css %}
+<!--[if (!IE)|(gte IE 8)]><!--> {% include_media 'main.css' media='screen, projection' %} <!--<![endif]-->
+<!--[if lt IE 8]> {% include_media 'main-ie.css' %} <![endif]-->
+{% include_media 'print.css' media='print' %}
+{% endblock %}
+
+{% block preload_js %}
+	{% include_media 'main.js' %}
+{% endblock %}
+
+{% block messaging %}
+	<div id="js-messages-login-top" class="error" style="display:none"></div>
+	{% if disabled %}
+		<div class="messages">
+			<p class="info">Place orders M-F anytime before 4:30pm</p>
+		</div>
+	{% endif %}
+	
+	{% if messages %}
+	<div class="messages">
+	    {% for message in messages %}
+	    <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+	    {% endfor %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="append-1 span-22 prepend-1 append-bottom clearfix"> 
+	<a href="https://yupeat.appspot.com/order/{{city}}">
+		<div class="logo span-16"></div>
+	</a>
+	{% include 'profile/login_navbar.html' %}
+	<hr/>
+	
+	<div>
+		<h2><b>Grandma is still deciding what you should eat today.</b> Check back soon for today's meal!</h2>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">lib.auth.init();</script>
+{% endblock %}

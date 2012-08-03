@@ -1,0 +1,25 @@
+{% load i18n %}
+
+{% if gift %}
+	<p>{{gifter}} has just sent you the gift - 1 Month Free Subscription to Yupeat!</p>
+{% else %}
+	<p>You've been invited to start using Yupeat!</p>
+{% endif %}
+<br/>
+<p>Create your Yupeat account below to begin receiving one email per day with a description 
+of a meal and the ingredients that you can order using our service.</p> 
+<br/>
+<p>Click the link below to set your password and create your account.</p>
+<br/>
+<a href="{{url}}">{{url}}</a> 
+<br/>
+<p><b>More on how it works:</b></p><br/>
+<p>1. Once per day you receive an email with a dinner meal recipe.</p>
+<p>2. If you dig it, review the list of ingredients to deselect items you already have at home.</p>
+<p>3. Place an order anytime before 4:30p and pick-up anytime between 5-7p curbside, 
+directly in front of the {{store.store_name}} at {{store.street1}}, in front of the CalTrain station.</p>
+<br/>
+<p>If you have questions or feedback feel free to contact us at support@yupeat.com.</p>
+<p>We'll see you soon. Thanks!</p>
+<br/>
+<p>Ray + The Yupeat Team</p>

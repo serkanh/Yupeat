@@ -1,0 +1,7 @@
+{% load i18n %}
+
+Thanks for using Yupeat. We've canceled your subscription. 
+
+We're sorry to see you go, but come back any time.
+
+Ray + The Yupeat Team
