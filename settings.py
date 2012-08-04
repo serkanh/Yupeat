@@ -123,7 +123,7 @@ MEDIA_BUNDLES = (
 
 COPY_MEDIA_FILETYPES = ('gif', 'jpg', 'jpeg', 'png', 'svg', 'svgz','ico', 'swf', 'ttf', 'otf', 'eot')
 GMAPI_MEDIA_PREFIX = '/gmapi/'
-GOOGLE_MAPS_API_KEY = 'ABQIAAAA0cpX06xTSo-ogY4hTVCRiRSCXxtWHHj0-TrnDYn_NkVZD5aJiRSUX1Go8fAmyUHcEInZ7mZTB3F3Hw'
+GOOGLE_MAPS_API_KEY = '{GMAPS_API_KEY}'
 
 
 PREPARE_UPLOAD_BACKEND = 'filetransfers.backends.delegate.prepare_upload'
@@ -157,7 +157,7 @@ EMAIL_USE_TLS = 'True'
 DEFAULT_FROM_EMAIL = 'yupeat@yupeat.com'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-STRIPE_API_KEY = 'KcKfkSEQCvRQaffQRAUenU6ngpqrKauj'
+STRIPE_API_KEY = '{STRIPE_API_KEY}'
 #TEST STRIPE ACCOUNT
 #STRIPE_API_KEY = '10JYTXhTwH3BDCl2aRClWWGyrwTJYswE'
 
